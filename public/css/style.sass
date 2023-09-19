@@ -1,0 +1,1074 @@
+@import url('https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,100;0,200;0,400;0,700;1,100;1,200;1,400;1,700&family=Open+Sans:ital,wght@0,300;0,400;1,300;1,400&display=swap')
+
+$main-font: 'Open Sans', sans-serif
+$second-font: 'Kanit', sans-serif
+
+$green: #558E50
+
+input,textarea,button,select,a, .arrow
+  -webkit-tap-highlight-color: transparent
+
+body
+  position: relative
+  letter-spacing: 0.5px
+  font-family: $second-font
+
+ul,li
+  list-style-type: none
+
+a
+  color: white
+  text-decoration: none
+
+.background
+  position: fixed
+  top: 0
+  width: 100%
+  height: 100%
+  background: radial-gradient(86.62% 86.62% at 51.56% 8.74%, #39567e 0%, #1F1F1F 100%), radial-gradient(30% 30% at 60% 30%, #503a5d 0%, #1F1F1F 100%)
+  background-size: 500%
+  animation: bganim 15s infinite alternate
+
+  @keyframes bganim
+    0%
+      background-position: left
+
+    100%
+      background-position: right
+
+.main-container
+  position: relative
+  display: grid
+  gap: 10px
+  grid-template-columns: 250px 1fr
+  max-width: 1440px
+  margin: 0 auto
+
+  @media screen and ( max-width: 1100px )
+    display: flex
+    flex-direction: column
+
+  .leftbar
+    position: sticky
+    z-index: 200
+    top: 0
+    height: 100vh
+    border-radius: 10px
+    background: radial-gradient(261205.98% 120.61% at 14.84% 2.89%, rgba(16, 16, 16, 0.42) 0%, rgba(16, 16, 16, 0.56) 36.92%, rgba(16, 16, 16, 0.56) 73.25%, rgba(16, 16, 16, 0.24) 100%)
+    box-shadow: 2px 0px 20px 2px rgba(0, 0, 0, 0.30)
+
+    @media screen and ( max-width: 1100px )
+      display: flex
+      background: rgba(39, 39, 39, 1)
+      height: 76px
+
+    .language
+      text-align: center
+      color: white
+      font-size: 12px
+
+      @media screen and ( max-width: 1100px )
+        display: none
+
+      .language__title
+        text-align: center
+        color: white
+        cursor: pointer
+        display: flex
+        justify-content: center
+        align-items: center
+        gap: 10px
+        background: rgba(0,0,0,.3)
+        border-radius: 5px
+        font-size: 14px
+        padding: 10px 10px
+        &:hover
+          background: rgba(97, 97, 97, 0.459)
+
+        img
+          object-fit: contain
+          width: 18px
+          border-radius: 2px
+      .language__list
+        display: flex
+        flex-direction: column
+        padding: 0
+        gap: 0
+        max-height: 200px
+        overflow-x: hidden
+        opacity: 0
+        height: 0vh
+        transition: all .5s
+        overflow-y: scroll
+        background: rgba(0,0,0,.3)
+        border-radius: 6px
+        text-align: center
+
+        &.active
+          height: 100vh
+          opacity: 1
+
+        &::-webkit-scrollbar
+          width: 5px
+        &::-webkit-scrollbar-thumb
+          background: #5f5f5f
+
+          border-radius: 2px
+        &::-webkit-scrollbar-track
+          background: #1B1B1B
+        li
+          cursor: pointer
+          padding: 10px
+          display: flex
+          justify-content: start
+          gap: 10px
+          align-items: center
+          &:hover
+            background: rgba(97, 97, 97, 0.459)
+          img
+            object-fit: contain
+            width: 18px
+            border-radius: 2px
+
+    .utc
+      text-align: center
+      margin-top: 24px
+      color: white
+      cursor: pointer
+      display: flex
+      justify-content: center
+      align-items: center
+      gap: 10px
+      background: rgba(0,0,0,.3)
+      border-radius: 5px
+      font-size: 14px
+      padding: 10px 10px
+      cursor: pointer
+
+      &:hover
+        background: rgba(97, 97, 97, 0.459)
+
+      @media screen and ( max-width: 1100px )
+        display: none
+
+    .utc__list
+      display: flex
+      flex-direction: column
+      padding: 0
+      gap: 0
+      max-height: 200px
+      overflow-x: hidden
+      opacity: 0
+      height: 0vh
+      color: white
+      transition: all .5s
+      overflow-y: scroll
+      background: rgba(0,0,0,.3)
+      border-radius: 6px
+      text-align: center
+
+      &.active
+        height: 100vh
+        opacity: 1
+
+      &::-webkit-scrollbar
+        width: 5px
+      &::-webkit-scrollbar-thumb
+        background: #5f5f5f
+
+        border-radius: 2px
+      &::-webkit-scrollbar-track
+        background: #1B1B1B
+
+      .item
+        text-align: center
+        cursor: pointer
+        &:hover
+          background: rgba(97, 97, 97, 0.459)
+
+        a
+          display: block
+          padding: 10px 0
+          width: 100%
+          cursor: pointer
+
+    .menu
+      padding: 40px 20px
+      display: flex
+      position: relative
+      justify-content: center
+      gap: 10px
+      flex-direction: column
+      font-size: 14px
+      text-transform: uppercase
+      font-style: italic
+      @media screen and ( max-width: 1100px )
+        display: flex
+        width: 100%
+        flex-direction: row
+        justify-content: space-between
+        padding: 10px 20px
+        gap: 40px
+
+      .logo
+        display: flex
+        justify-content: center
+        align-items: center
+
+      .menu-button
+        display: flex
+        align-items: center
+        transition: all .4s
+        cursor: pointer
+
+        svg
+          transition: all .4s
+
+          #rect1, #rect2, #rect3
+            transition: all .4s
+
+        &.active
+          #rect1
+            rotate: 30deg
+          #rect2
+            opacity: 0
+            width: 0
+          #rect3
+            rotate: -30deg
+            transform-origin: 0 23px
+
+        @media screen and ( min-width: 1100px )
+          display: none
+
+        a
+          display: flex
+
+        @media screen and ( max-width: 1100px )
+          align-items: center
+      .navbar
+        display: flex
+        flex-direction: column
+        text-align: center
+        color: white
+        font-size: 12px
+        align-items: center
+        @media screen and ( max-width: 1100px )
+          margin-top: 0
+          display: none
+          justify-content: center
+        ul
+          display: flex
+          width: 100%
+          justify-content: center
+          align-items: center
+          flex-direction: column
+          background: rgba(0,0,0,.3)
+          overflow: hidden
+          border-radius: 5px
+          font-size: 14px
+          padding: 0
+          margin-top: 10px
+          @media screen and ( max-width: 1100px )
+            flex-direction: row
+
+        li
+          width: 100%
+          cursor: pointer
+          &:hover
+            background: rgba(97, 97, 97, 0.459)
+          &.active
+            background: #5F5686
+          a
+            display: block
+            padding: 10px 0
+            width: 100%
+            height: 100%
+
+      .navbar-mobile
+        display: none
+        position: absolute
+        padding: 20px 0
+        flex-direction: column
+        font-size: 12px
+        align-items: center
+        color: white
+        justify-content: center
+        background: rgba(39, 39, 39, 1)
+        transform: translateY(-100%)
+        left: 0
+        opacity: 0
+        width: 100%
+        transition: all .4s
+
+        .utc-mobile
+          text-align: center
+          color: white
+          cursor: pointer
+          display: flex
+          min-width: 300px
+          justify-content: center
+          align-items: center
+          gap: 10px
+          background: rgba(0,0,0,.3)
+          border-radius: 5px
+          font-size: 14px
+          padding: 10px 10px
+          cursor: pointer
+
+          &:hover
+            background: rgba(97, 97, 97, 0.459)
+
+          @media screen and ( max-width: 430px )
+            width: 280px
+            min-width: 0
+            padding: 10px 0
+
+        .utc-mobile__list
+          display: flex
+          flex-direction: column
+          padding: 0
+          gap: 0
+          max-height: 200px
+          overflow-x: hidden
+          min-width: 320px
+          margin-top: 10px
+          opacity: 0
+          height: 0vh
+          color: white
+          transition: all .5s
+          overflow-y: scroll
+          background: rgba(0,0,0,.3)
+          border-radius: 6px
+          text-align: center
+
+          @media screen and ( max-width: 430px )
+            width: 280px
+            min-width: 0
+
+          &.active
+            height: 100vh
+            opacity: 1
+
+          &::-webkit-scrollbar
+            width: 5px
+          &::-webkit-scrollbar-thumb
+            background: #5f5f5f
+
+            border-radius: 2px
+          &::-webkit-scrollbar-track
+            background: #1B1B1B
+
+          .item
+            padding: 10px
+            text-align: center
+            cursor: pointer
+            &:hover
+              background: rgba(97, 97, 97, 0.459)
+
+        @media screen and ( max-width: 1100px )
+          display: flex
+
+        &.active
+          transform: translateY(calc( 0px + 76px ))
+          opacity: 1
+
+        ul
+          text-align: center
+          margin-top: 10px
+          color: #fff
+          cursor: pointer
+          display: flex
+          justify-content: center
+          align-items: center
+          background: rgba(0,0,0,.3)
+          overflow: hidden
+          border-radius: 5px
+          font-size: 14px
+          min-width: 300px
+          padding: 0
+          flex-direction: column
+          @media screen and ( max-width: 430px )
+            min-width: 0
+            width: 280px
+          li
+            width: 100%
+            padding: 0
+            a
+              display: block
+              padding: 10px
+              min-width: 300px
+              height: 100%
+              @media screen and ( max-width: 430px )
+                min-width: 0
+
+            &:hover
+              background: rgba(97, 97, 97, 0.459)
+            &.active
+              background: #558e50
+
+            @media screen and ( max-width: 430px )
+              width: 280px
+              min-width: 0
+
+        .language-mobile
+          text-align: center
+          color: white
+          font-size: 12px
+          @media screen and ( max-width: 430px )
+            width: 280px
+          &__title
+            text-align: center
+            margin-top: 10px
+            color: white
+            cursor: pointer
+            min-width: 300px
+            display: flex
+            justify-content: center
+            align-items: center
+            gap: 10px
+            background: rgba(0,0,0,.3)
+            border-radius: 5px
+            font-size: 14px
+            padding: 10px 10px
+            @media screen and ( max-width: 430px )
+              min-width: 0
+            &:hover
+              background: rgba(97, 97, 97, 0.459)
+            img
+              object-fit: contain
+              width: 18px
+              border-radius: 2px
+
+          &__list
+            display: flex
+            flex-direction: column
+            padding: 0
+            gap: 0
+            opacity: 0
+            justify-content: start
+            height: 0
+            transition: all .5s
+            overflow-y: scroll
+            background: rgba(0,0,0,.3)
+            border-radius: 6px
+            text-align: center
+
+            @media screen and ( max-width: 430px )
+              margin: 10px 0
+              width: 100%
+
+            img
+              object-fit: contain
+              width: 18px
+              border-radius: 2px
+
+            &.active
+              height: 200px
+              opacity: 1
+
+            &::-webkit-scrollbar
+              width: 5px
+            &::-webkit-scrollbar-thumb
+              background: #5f5f5f
+
+              border-radius: 2px
+            &::-webkit-scrollbar-track
+              background: #1B1B1B
+            li
+              cursor: pointer
+              padding: 10px
+              &:hover
+                background: rgba(97, 97, 97, 0.459)
+
+  .rightbar
+    width: 100%
+    min-height: 100vh
+    border-radius: 10px
+    background: radial-gradient(261205.98% 120.61% at 14.84% 2.89%, rgba(16, 16, 16, 0.42) 0%, rgba(16, 16, 16, 0.56) 36.92%, rgba(16, 16, 16, 0.56) 73.25%, rgba(16, 16, 16, 0.24) 100%)
+
+    .content
+      display: flex
+      padding-top: 40px
+      flex-direction: column
+      align-items: flex-start
+      flex: 1 0 0
+      align-self: stretch
+
+      .content__header
+        display: flex
+        padding: 0 40px
+        font-size: 16px
+        gap: 20px
+        color: white
+        font-style: italic
+        align-items: center
+        text-transform: uppercase
+        @media screen and ( max-width: 720px )
+          padding: 0 20px
+
+        .cup-icon
+          object-fit: contain
+          height: 30px
+
+        .discipline-icon
+          object-fit: contain
+          height: 30px
+
+        .content__header__title
+          display: flex
+          flex-direction: column
+          gap: 7px
+
+      .match
+        display: flex
+        padding: 20px 40px 0 40px
+        align-items: center
+        justify-content: space-between
+        width: calc( 100% - 80px )
+        height: auto
+        color: white
+        text-transform: uppercase
+        font-style: italic
+        @media screen and ( max-width: 720px )
+          padding: 20px 20px 0 20px
+          width: calc(100% - 40px)
+        @media screen and ( max-width: 430px )
+          display: grid
+          padding: 20px 20px 20px 20px
+          grid-template-rows: 1fr max-content
+          justify-content: space-evenly
+
+        .go-bet-link
+          padding: 10px 10px 10px 10px
+          border-radius: 10px
+          gap: 10px
+          border-radius: 10px
+          text-align: center
+          color: #272727
+          font-size: 14px
+          transition: all .1s
+          margin-bottom: 50px
+          font-weight: bold
+          background: #EED067
+          &:hover
+            background: #EED090
+          @media screen and ( max-width: 430px )
+            grid-column: 1/span 2
+            margin-bottom: 0
+            margin-top: 20px
+
+        img
+          width: 100px
+          @media screen and ( max-width: 720px )
+            width: 90px
+
+        .team-1-wrapper, .team-2-wrapper
+          display: flex
+          flex-direction: column
+          width: 100%
+          align-items: center
+          @media screen and ( max-width: 430px )
+            grid-row: 1
+
+          img
+            height: 100px
+            width: 100px
+            object-fit: contain
+            @media screen and ( max-width: 720px )
+              height: 80px
+              width: 80px
+
+          .team-1-name, .team-2-name
+            display: flex
+            justify-content: center
+            text-align: center
+            height: 40px
+            align-items: flex-start
+            margin-top: 10px
+            @media screen and ( max-width: 600px )
+              font-size: 14px
+            @media screen and ( max-width: 430px )
+              height: max-content
+
+      .match-info
+        display: flex
+        justify-content: center
+        padding: 20px 0
+        align-items: center
+        flex-direction: column
+        gap: 20px
+        color: white
+        font-size: 16px
+        font-style: italic
+        width: 100%
+        background: rgba(93, 186, 216, 0.10)
+        .start-time
+          display: flex
+          justify-content: center
+          align-items: center
+          gap: 20px
+          font-size: 20px
+          @media screen and ( max-width: 430px )
+            display: grid
+            grid-auto-rows: max-content
+            justify-content: center
+            gap: 5px
+            text-align: center
+        .time-left
+          display: flex
+          align-items: center
+          gap: 5px
+          span
+            font-size: 14px
+            font-weight: bold
+            color: #93BA61
+        .count-wrapper-match
+          display: flex
+          align-items: center
+          flex-wrap: wrap
+          padding: 0 5px
+          gap: 5px
+
+          .count-all
+            padding: 5px 10px
+            display: flex
+            border-radius: 4px
+            flex: 1 1 auto
+            justify-content: center
+            gap: 5px
+            align-items: center
+            background: rgba(0,0,0,.3)
+
+          .count-event
+            padding: 5px 10px
+            display: flex
+            border-radius: 4px
+            flex: 1 1 auto
+            justify-content: center
+            gap: 5px
+            align-items: center
+            background: rgba(0,0,0,.3)
+
+      .all-bets
+        display: flex
+        flex-direction: column
+        width: 100%
+
+        .bet
+          display: flex
+          flex-direction: column
+          width: 100%
+          color: white
+
+          .pre-info
+            .favorite>div
+              display: flex
+              padding: 5px 10px
+              width: max-content
+              background: #d7b243
+              color: #2c2c2c
+              font-weight: bold
+              border-radius: 10px 10px 0 0
+
+          &.favorite-bet
+            box-sizing: border-box
+            border-width: 3px
+            border-style: solid
+            border-image: linear-gradient(#d1797900, #d7b243)
+            border-image-slice: 1
+
+          .row-1
+            display: grid
+            grid-template-columns: 1fr 20px
+            max-width: 100%
+            padding: 10px
+            align-items: center
+            gap: 10px
+            position: relative
+            background: rgba(0, 0, 0, 0.30)
+
+            div
+              display: flex
+              gap: 10px
+              flex-wrap: wrap
+
+            &.favorite-bet
+              background: #d7b243
+              box-shadow: 0 0 10px #12111191
+
+            .favorite
+              display: flex
+              align-items: center
+              padding: 0 10px
+              gap: 10px
+
+            .bet__variant
+              color: white
+              display: flex
+              gap: 5px
+              flex: 1 1 auto
+              align-items: center
+              min-width: max-content
+              max-width: 100%
+              border: 2px solid rgba(67, 87, 108, 0.241)
+              @media screen and ( max-width: 600px )
+                font-size: 14px
+
+              a
+                display: block
+                padding: 5px 10px
+
+              &.favorite
+                border: 2px solid #2E3235
+                padding: 0
+
+              table.favorite-table
+                max-width: calc(100vw - 23px)
+                color: white
+                flex: 1 1 auto
+                th
+                  background: rgb(46, 50, 53)
+                  padding: 5px 10px
+                  &:last-child
+                    width: 80px
+                tbody
+                  tr
+                    td
+                      border: 1px solid rgb(46, 50, 53)
+                      color: #2E3235
+                      background: #303030
+                      text-align: center
+
+            .arrow
+              width: 20px
+              cursor: pointer
+              transition: all .3s
+              transform: rotate(180deg)
+
+              &.toggle
+                transform: rotate(0deg)
+
+              @media screen and ( max-width: 600px )
+                position: relative
+                align-self: center
+                right: 0
+                width: 100%
+                height: 15px
+
+          &__text-generation
+            font-weight: 200 !important
+            padding: 0 20px 20px 20px
+            font-size: 16px
+            transition: all .3s
+            max-height: 100em
+            overflow: hidden
+            visibility: visible
+            position: relative
+            p
+              font-weight: 200 !important
+            &.toggle
+              visibility: hidden
+              max-height: calc(100vw - 100vw)
+            span.pre-info
+              font-family: $main-font
+              font-size: 16px
+              position: relative
+              margin-left: 25px
+              display: flex
+              align-items: center
+              @media screen and ( max-width: 600px )
+                font-size: 14px
+                line-height: 145%
+
+              &::before
+                content: "!"
+                display: block
+                position: absolute
+                font-weight: bold
+                font-style: italic
+                font-family: $main-font
+                font-size: 40px
+                color: yellow
+                left: -25px
+
+            span
+              font-weight: bold
+
+            .text
+              color: #FFF
+              margin-top: 10px
+              font-size: 18px
+              font-style: italic
+              line-height: 150%
+              text-align: left
+              font-family: $main-font
+              span
+                display: block
+                padding: 10px 20px 10px 0
+                font-weight: bold
+                color: #93BA61
+
+.rightbar
+
+  .h1-title
+    display: block
+    color: white
+    font-family: $main-font
+    font-size: 30px
+    padding: 0 20px
+    margin-top: 40px
+    @media screen and ( max-width: 1100px )
+      font-size: 28px
+    @media screen and ( max-width: 720px )
+      font-size: 24px
+    @media screen and ( max-width: 430px )
+      font-size: 20px
+
+  .breadcrumbs
+    display: flex
+    gap: 20px
+    width: calc( 100% - 40px )
+    height: 15px
+    white-space: nowrap
+    overflow-x: scroll
+    overflow-y: hidden
+    padding: 0 20px
+    margin: 0
+    font-size: 14px
+    &::-webkit-scrollbar
+      display: none
+    li
+      &:last-child::after
+        display: none
+
+      &::after
+        content: "•"
+        margin-left: 20px
+        color: white
+
+  .list-filter
+    display: flex
+    gap: 10px
+    flex-wrap: wrap
+    margin: 0
+    padding: 0 20px
+    li
+      display: flex
+      align-items: center
+      gap: 10px
+      background: rgba(89, 89, 89, 0.25)
+      padding: 10px 10px
+      border-radius: 5px
+      text-transform: uppercase
+      font-size: 14px
+      cursor: pointer
+      color: #fff
+
+      &.active
+        border: 1px solid #7CB67B
+        background: #202620
+
+      &:hover
+        background: rgba(97, 97, 97, 0.459)
+
+      img
+        width: 20px
+
+  .all-bets-info
+    align-items: center
+    gap: 10px
+    margin: 10px 20px 0 20px
+    padding: 10px 0 0 0
+    display: flex
+    gap: 10px
+    color: white
+    width: calc( 100% - 40px )
+    border-radius: 5px
+    // background: rgba(89,89,89,.25)
+
+  .content-bets
+    display: flex
+    flex-direction: column
+
+    gap: 10px
+    padding: 20px 20px
+    font-family: $main-font
+
+    @media screen and ( max-width: 1440px )
+      display: grid
+      grid-template-columns: repeat(auto-fill, minmax(230px, 1fr))
+    .bet
+      display: grid
+      grid-template-columns: 200px 180px 1fr max-content max-content
+      gap: 10px
+      border-radius: 10px
+      background: linear-gradient(270deg, rgba(103, 138, 170, 0.2) 37.41%, rgb(84 84 84 / 35%) 105.36%)
+      padding: 10px 15px
+      color: white
+      @media screen and ( max-width: 1440px )
+        grid-template-columns: 1fr !important
+
+      .time-left
+        display: flex
+        align-items: center
+        font-size: 12px
+        gap: 5px
+        width: 100%
+        @media screen and ( max-width: 430px )
+          font-size: 12px
+        @media screen and ( max-width: 1440px )
+          justify-content: center
+
+        span
+          color: #93BA61
+          font-size: 12px
+          @media screen and ( max-width: 430px )
+            font-size: 12px
+      .title
+        display: flex
+        gap: 10px
+        align-items: center
+        font-size: 14px
+
+        p
+          margin: 0
+
+        img
+          width: 20px
+
+        img.cup
+          width: 20px
+
+        @media screen and ( max-width: 430px )
+          font-size: 14px
+
+        @media screen and ( max-width: 1440px )
+          text-align: center
+          justify-content: center
+          gap: 10px
+          img
+            display: none
+
+      .teams
+        display: grid
+        grid-template-columns: 1fr 1fr
+        align-items: center
+        justify-content: space-between
+        gap: 10px
+
+        @media screen and ( max-width: 1440px )
+          grid-template-columns: 50% 50%
+          width: calc( 100% - 20px )
+          align-items: flex-start
+
+        .team-1,.team-2
+          display: grid
+          grid-template-columns: 40px max-content
+          align-items: center
+          gap: 5px
+
+          @media screen and ( max-width: 1440px )
+            display: grid
+            grid-template-columns: 1fr
+            align-items: center
+            justify-content: center
+
+          .team-1-name, .team-2-name
+            display: flex
+            font-size: 14px
+            justify-content: start !important
+            @media screen and ( max-width: 1440px )
+              justify-content: center !important
+              text-align: center !important
+              min-height: 32px
+              align-items: center
+
+          .team-1-name__alternate, .team-2-name__alternate
+            justify-content: start !important
+            text-align: left !important
+            @media screen and ( max-width: 1440px )
+              justify-content: center !important
+              text-align: center !important
+
+          .team-1-logo, .team-2-logo
+            grid-row: 1/span 2
+            @media screen and ( max-width: 1440px )
+              justify-self: center
+
+        .text-vs
+          text-align: center
+
+        .team-1-logo, .team-2-logo
+          height: 35px
+          width: 35px
+
+      .count-wrapper
+        display: flex
+        gap: 5px
+
+        @media screen and ( max-width: 1440px )
+          flex-wrap: wrap
+          flex: 1 1 auto
+
+        .count-all
+          display: flex
+          gap: 5px
+          align-items: center
+          padding: 5px 10px
+          flex: 1 1 auto
+          justify-content: center
+          border-radius: 4px
+          background: rgba(0,0,0,.3)
+          &__title
+            font-size: 14px
+          &__num
+            font-size: 12px
+
+        .count-event
+          display: flex
+          border-radius: 4px
+          flex: 1 1 auto
+          justify-content: center
+          gap: 5px
+          align-items: center
+          padding: 5px 10px
+          background: rgba(0,0,0,.3)
+
+          &__title
+            font-size: 14px
+          &__num
+            font-size: 12px
+
+        @media screen and ( max-width: 1440px )
+          align-items: center
+
+      a
+        display: flex
+        align-items: center
+        justify-content: flex-end
+
+      .main-btn
+        border-radius: 10px
+        background: $green
+        cursor: pointer
+        border: none
+        padding: 10px 10px
+        background: $green
+        text-transform: uppercase
+        color: white
+        font-style: italic
+        font-size: 14px
+        transition: all .2s
+        &:hover
+          background: darken($green, 20%)
+
+        @media screen and ( max-width: 1440px  )
+          width: 100%
+
+.seo-text
+  color: #fff9
+  font-family: $main-font
+  font-size: 14px
+  padding: 20px 20px 20px 20px
+  border-top: solid 2px #fff9
+  background: #272727
