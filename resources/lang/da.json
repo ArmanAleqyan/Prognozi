@@ -39,5 +39,14 @@
     "{makros_38}": "Bedste indsats",
     "{makros_39}": "Indsats:",
     "{makros_40}": "Odds:",
-    "{makros_41}": "Odds"
-    }
+    "{makros_41}": "Odds",
+    "{makros_42}":"Vindende væddemål i alt",
+    "{makros_43}":"Den bedste",
+    "{makros_44}":"I alt",
+    "{makros_45}":"Den bedste",
+    "{makros_46}":"Interessante kampe",
+    "{makros_47}":"Forudsigelse for kampen:",
+    "{makros_48}":"Forudsigelse for kampen:",
+    "{makros_49}":"Forudsigelsen for fodboldkampen er lavet af kunstig intelligens ved hjælp af smart statistisk analyse.",
+    "{makros_50}":"Leder du efter en præcis gratis forudsigelse for en fodboldkamp {makros_comands}, der finder sted den {makros_date}? På denne side finder du den mest aktuelle gratis forudsigelse for fodboldkampen {makros_comands}. At satse på en fodboldkamp er altid en risiko, men med vores gratis forudsigelse fra AI for kampen {makros_comands} øges dine chancer for succes betydeligt. Gratis forudsigelse for et væddemål på en fodboldkamp mellem holdene {makros_comands}, der finder sted den {makros_date}. Fodbold forudsigelse. Gratis forudsigelse for kampe."
+}

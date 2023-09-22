@@ -39,6 +39,7 @@
                     <h4 class="card-title">Атрибуты</h4>
                         <a style="display: flex; justify-content: center; align-items: center" class="btn btn-inverse-warning btn-fw" href="{{route('single_page_prognoz', $get->prognoz_id)}}">Назад</a>
                     </div>
+                   
                         <form  action="{{route('update_attr')}}" method="post" class="forms-sample" enctype="multipart/form-data">
                         @csrf
                         <br>
@@ -120,7 +121,9 @@
 
                             <div style="display: flex; justify-content: space-between">
                         <button type="submit" class="submit_button btn btn-inverse-success btn-fw">Редактировать</button>
+                                &nbsp; @if(auth()->user()->id == 1)
                         <a href="{{route('delete_attr', $get->id)}}"  class="btn btn-inverse-danger btn-fw">Удалить</a>
+                                           @endif
                             </div>
                     </form>
                 </div>

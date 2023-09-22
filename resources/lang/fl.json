@@ -40,5 +40,14 @@
 "{makros_38}": "Paras veto",
 "{makros_39}": "Veto:",
 "{makros_40}": "Kertoimet:",
-"{makros_41}": "Kertoimet"
+"{makros_41}": "Kertoimet",
+"{makros_42}": "Voittaneet vedot yhteensä",
+"{makros_43}": "Paras",
+"{makros_44}": "Yhteensä",
+"{makros_45}": "Paras",
+"{makros_46}":"Mielenkiintoiset ottelut",
+"{makros_47}":"Ennuste ottelulle:",
+"{makros_48}":"Ennuste ottelusta:",
+"{makros_49}":"Jalkapallo-ottelun ennuste on luotu tekoälyllä käyttäen älykästä tilastollista analyysiä.",
+"{makros_50}":"Etsitkö tarkkaa ilmaista ennustetta jalkapallo-ottelusta {makros_comands}, joka tapahtuu {makros_date}? Tällä sivulla löydät varmasti ajantasaisimman ilmaisen ennusteen jalkapallo-ottelusta {makros_comands}. Vedonlyönti jalkapallo-otteluun on aina riski, mutta ilmaisella tekoälyennusteellamme ottelusta {makros_comands} menestymisen mahdollisuutesi kasvavat huomattavasti. Ilmainen vedonlyöntiennuste jalkapallo-ottelusta joukkueiden {makros_comands} välillä, joka tapahtuu {makros_date}. Jalkapalloennuste. Ilmainen otteluiden ennuste."
 }

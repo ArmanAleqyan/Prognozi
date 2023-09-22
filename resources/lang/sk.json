@@ -39,5 +39,14 @@
     "{makros_38}": "Najlepšia stávka",
     "{makros_39}": "Stávka:",
     "{makros_40}": "Koeficient:",
-    "{makros_41}": "KF"
-    }
+    "{makros_41}": "KF",
+    "{makros_42}":"Celkový počet víťazných stávok",
+    "{makros_43}":"Najlepšie",
+    "{makros_44}":"Celkom",
+    "{makros_45}":"Najlepšie",
+    "{makros_46}":"Zaujímavé zápasy",
+    "{makros_47}":"Predpoveď na zápas:",
+    "{makros_48}":"Predpoveď na zápas:",
+    "{makros_49}":"Predpoveď na futbalový zápas bola vytvorená umelou inteligenciou s použitím inteligentnej štatistickej analýzy.",
+    "{makros_50}":"Hľadáte presnú bezplatnú predpoveď na futbalový zápas {makros_comands}, ktorý sa uskutoční {makros_date}? Na tejto stránke určite nájdete najaktuálnejšiu bezplatnú predpoveď na futbalový zápas {makros_comands}. Stávka na futbalový zápas je vždy rizikom, ale s našou bezplatnou predpoveďou od AI na zápas {makros_comands} sa vaše šance na úspech výrazne zvyšujú. Bezplatná predpoveď stávky na futbalový zápas medzi tímami {makros_comands}, ktorý sa uskutoční {makros_date}. Futbalová predpoveď. Bezplatná predpoveď na zápasy."
+}

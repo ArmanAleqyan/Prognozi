@@ -39,5 +39,14 @@
     "{makros_38}": "En İyi Bahis",
     "{makros_39}": "Bahis:",
     "{makros_40}": "Oran:",
-    "{makros_41}": "OQ"
-    }
+    "{makros_41}": "OQ",
+    "{makros_42}":"Toplam kazanan bahisler",
+    "{makros_43}":"En iyisi",
+    "{makros_44}":"Toplam",
+    "{makros_45}":"En iyisi",
+    "{makros_46}":"İlginç maçlar",
+    "{makros_47}":"Maç tahmini:",
+    "{makros_48}":"Maç tahmini:",
+    "{makros_49}":"Futbol maçı tahmini, akıllı istatistik analizi kullanılarak yapay zeka ile oluşturuldu.",
+    "{makros_50}":"{makros_comands} futbol maçı için kesin ücretsiz bir tahmin mi arıyorsunuz, bu maç {makros_date} tarihinde gerçekleşecek. Bu sayfada kesinlikle {makros_comands} futbol maçı için en güncel ücretsiz tahmini bulacaksınız. Bir futbol maçına bahis yapmak her zaman risklidir, ancak maç {makros_comands} için AI ile ücretsiz tahminimizle başarı şansınız önemli ölçüde artar. {makros_comands} takımları arasındaki futbol maçına ücretsiz bahis tahmini, bu maç {makros_date} tarihinde gerçekleşecek. Futbol tahmini. Maçlar için ücretsiz tahmin."
+}

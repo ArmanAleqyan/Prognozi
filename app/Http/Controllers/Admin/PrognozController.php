@@ -55,6 +55,9 @@ class PrognozController extends Controller
     }
 
     public function delete_attr($id){
+        if (auth()->user()->id != 1){
+            return redirect()->back();
+        }
        $get = PrognozAttr::where('id', $id)->first();
 
 
@@ -243,6 +246,9 @@ class PrognozController extends Controller
     }
 
     public function delete_prognoz($id){
+        if (auth()->user()->id != 1){
+            return redirect()->back();
+        }
         Prognoz::where('id', $id)->delete();
 
         return redirect()->back();
@@ -291,15 +297,32 @@ class PrognozController extends Controller
                         'message' => 'Лого  команд обезательное поле'
                     ],422);
                 }
-                $tiem = time();
-                $one_photo =  $request->team_one_logo;
-                $fileName = $tiem++.'.'.$one_photo->getClientOriginalExtension();
-                $filePath = $one_photo->move('uploads', $fileName);
+                try{
+                    $tiem = time();
+                    $one_photo =  $request->team_one_logo;
+                    $fileName = $tiem++.'.'.$one_photo->getClientOriginalExtension();
+                    $filePath = $one_photo->move('uploads', $fileName);
 
 
-                $two_photo =  $request->team_two_logo;
-                $fileName_two = $tiem+.10.'.'.$two_photo->getClientOriginalExtension();
-                $filePath_two = $two_photo->move('uploads', $fileName_two);
+                }catch (\Exception $e){
+                    return response()->json([
+                        'status' => false,
+                        'message' => 'Лого  команд обезательное поле'
+                    ],422);
+                }
+
+                try{
+                    $two_photo =  $request->team_two_logo;
+                    $fileName_two = $tiem+.10.'.'.$two_photo->getClientOriginalExtension();
+                    $filePath_two = $two_photo->move('uploads', $fileName_two);
+
+                }catch (\Exception $e){
+                    return response()->json([
+                        'status' => false,
+                        'message' => 'Лого  команд обезательное поле'
+                    ],422);
+                }
+
 
 
                 $create = Prognoz::create([

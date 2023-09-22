@@ -39,5 +39,14 @@
     "{makros_38}":"Bästa spel",
     "{makros_39}":"Spel:",
     "{makros_40}":"Koefficient:",
-    "{makros_41}":"Kf"
-    }
+    "{makros_41}":"Kf",
+    "{makros_42}":"Totalt antal vinnande spel",
+    "{makros_43}":"Den bästa",
+    "{makros_44}":"Totalt",
+    "{makros_45}":"Den bästa",
+    "{makros_46}":"Intressanta matcher",
+    "{makros_47}":"Prognos för matchen:",
+    "{makros_48}":"Prognos för matchen:",
+    "{makros_49}":"Prognosen för fotbollsmatchen skapades av artificiell intelligens med användning av intelligent statistisk analys.",
+    "{makros_50}":"Letar du efter en exakt gratis prognos för fotbollsmatchen {makros_comands} som kommer att äga rum {makros_date}? På denna sida hittar du definitivt den mest aktuella gratisprognosen för fotbollsmatchen {makros_comands}. Att satsa på en fotbollsmatch är alltid en risk, men med vår gratis AI-prognos för matchen {makros_comands} ökar dina chanser till framgång avsevärt. Gratis prognos för satsning på fotbollsmatchen mellan lagen {makros_comands} som kommer att äga rum {makros_date}. Fotbollsprognos. Gratis prognos för matcher."
+}

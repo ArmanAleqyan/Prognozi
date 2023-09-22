@@ -49,8 +49,9 @@
                                         <td style="display: flex; justify-content: flex-end">
                                             <a  href="{{route('single_page_country', $pr->id)}}" class="btn btn-inverse-success btn-fw" bis_skin_checked="1">Редактировать</a>
                                             &nbsp;
-                                            &nbsp;
+                                            &nbsp; @if(auth()->user()->id == 1)
                                             <a  href="{{route('delete_country', $pr->id)}}" class="btn btn-inverse-danger btn-fw" bis_skin_checked="1">Удалить</a>
+                                                       @endif
                                         </td>
                                     </tr>
                                     </tbody>

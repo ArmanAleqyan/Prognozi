@@ -21,6 +21,7 @@ class HomeController extends Controller
 
     public function filtered_data(Request $request){
         $get = Prognoz::query();
+        $gets = Prognoz::query();
         $get->with('country_name');
 
         App::setLocale(session()->get('locale')??'ru');
@@ -32,13 +33,22 @@ class HomeController extends Controller
                     [Carbon::now(), DB::raw('TIMESTAMPADD(MINUTE, 105, start_carbon)')]
                 );
 
+
+            $vsego_header = '';
+            $vsego_header_text =      '';
+            $luchshaya_header   =       '';
+            $luchshaya_header_text = '';
         }
 
         if ($request->type == 'country_filter'){
             $get->where('country_id', $request->country_id);
+            $gets->where('country_id', $request->country_id);
+
+
         }
         if ($request->type == 'stars'){
             $get->where('star', 0);
+            $gets->where('star', 0);
         }
 
 
@@ -47,6 +57,23 @@ class HomeController extends Controller
                     $get->orderby('start_carbon', 'desc')
                         ->where(DB::raw('TIMESTAMPADD(MINUTE, 105, start_carbon)'), '<', Carbon::now());
 
+
+            $getss = $gets->where('status' , 'Завершен')->get('id')->pluck('id')->toarray();
+
+            $get_all_attr = \App\Models\PrognozAttr::wherein('prognoz_id', $getss)->where('title', '!=', '  ')->where('kf', '!=', null)->count();
+            $get_all_attr_true = \App\Models\PrognozAttr::wherein('prognoz_id', $getss)->where('title', '!=', '  ' )->where('kf', '!=', null)->where('status', 1)->count();
+            $get_all_attr_star_true = \App\Models\PrognozAttr::wherein('prognoz_id', $getss)->where('title', '!=', '  ')->where('kf', '!=', null)->where('super', 0)->where('status', 1)->count();
+            $get_all_attr_star = \App\Models\PrognozAttr::wherein('prognoz_id', $getss)->where('title', '!=', '  ')->where('kf', '!=', null)->where('super', 0)->where('super', 0)->count();
+
+            $datas['get_all_attr'] = $get_all_attr;
+            $datas['get_all_attr_true'] = $get_all_attr_true;
+            $datas['get_all_attr_star_true'] = $get_all_attr_star_true;
+            $datas['get_all_attr_star'] = $get_all_attr_star;
+
+            $vsego_header = $datas['get_all_attr_true'].'/'.$datas['get_all_attr'];
+            $vsego_header_text =      __('{makros_44}');
+            $luchshaya_header   =       $datas['get_all_attr_star_true'].'/'.$datas['get_all_attr_star'];
+            $luchshaya_header_text = __('{makros_44}');
         }
 
 
@@ -90,7 +117,6 @@ class HomeController extends Controller
                     $data['get_all_attr_true'] = $get_all_attr_true;
                     $data['get_all_attr_star_true'] = $get_all_attr_star_true;
                     $data['get_all_attr_star'] = $get_all_attr_star;
-
                 }
 
 
@@ -138,17 +164,24 @@ class HomeController extends Controller
                 $data->liga = \App\Models\PrognozTranslate::where('prognoz_id', $data->id)->where('lang', session()->get('locale'))->first()->liga??$data->liga;
                 $data->title = \App\Models\PrognozTranslate::where('prognoz_id', $data->id)->where('lang', session()->get('locale'))->first()->title??$data->title;
 
+
             }
 
 
             $data['single_page'] = route('bet',[$url , $data->id]);
             $data['button_text'] = __('{makros_19}');
+            $data['vsego'] = __('{makros_44}');
+            $data['lucshaya'] = __('{makros_45}');
         }
 
         return response()->json([
            'status' => true,
            'data' => $gets,
-            'next_page_url' =>$gets->nextPageUrl()
+            'next_page_url' =>$gets->nextPageUrl(),
+            'vsego_header' =>$vsego_header,
+            'vsego_header_text' =>$vsego_header_text,
+            'luchshaya_header' =>$luchshaya_header,
+            'luchshaya_header_text' =>$luchshaya_header_text,
         ],200);
 
     }
@@ -264,6 +297,8 @@ class HomeController extends Controller
                 }
                 $data['single_page'] = route('bet',[$url , $data->id]);
                 $data['button_text'] = __('{makros_19}');
+                $data['vsego'] = __('{makros_44}');
+                $data['lucshaya'] = __('{makros_45}');
             }
 
 
@@ -388,6 +423,8 @@ class HomeController extends Controller
                     }
                     $data['single_page'] = route('bet',[$url , $data->id]);
                     $data['button_text'] = __('{makros_19}');
+                    $data['vsego'] = __('{makros_44}');
+                    $data['lucshaya'] = __('{makros_45}');
                 }
 
                 return response()->json([
@@ -406,7 +443,7 @@ class HomeController extends Controller
 
             return view('index',compact('get', 'all_country'));
         }
-    public function bet($url, $id){
+    public function bet(Request $request,$url, $id){
         App::setLocale(session()->get('locale')??'ru');
         $get = Prognoz::where('url', $url)->where('id', $id)
                     ->orwhere('title', $url)->where('id', $id)->first();
@@ -462,7 +499,13 @@ class HomeController extends Controller
 
 
 
-        $end_date = $day.' '.$mounth. ' '.$year.' '.'года';
+        if (session()->get('locale') == 'ru' || session()->get('locale') == null){
+            $end_date = $day.' '.$mounth. ' '.$year.' '.'года?';
+        }else{
+            $end_date = $day.' '.$mounth. ' '.$year.' ';
+        }
+//        $end_date = $day.' '.$mounth. ' '.$year.' '.'года';
+
         $end_date_two = $day.' '.$mounth. ' '.$year;
 
 
@@ -481,9 +524,266 @@ class HomeController extends Controller
             // Обработка пустой строки
             $newCity = '';
         }
+        if (isset($request->page)){
+            $all_country = County::orderby('id', 'desc')->get();
 
-        return view('bet', compact('get', 'end_date', 'newCity','end_date_two'));
+            if ($get->star == 0){
+                if ($get->status ==   'Завершен'){
+                    $gets =  Prognoz::orderby('star', 'asc')->
+                    orderby('start_carbon', 'asc')
+                        ->orderby('star', 'asc')->with('country_name')
+                        ->where('status' , 'Завершен')
+                        ->where('id' , '!=', $get->id)
+                        ->where('country_id', $get->country_id)
+                        ->where('status' , 'Завершен')
+
+                        ->orWhere(function ($query) use ($get) {
+                            $query->where('star', $get->star) ->orderby('star', 'asc')->
+                            orderby('start_carbon', 'asc')
+                                ->orderby('star', 'asc')
+                                ->where('status' , '!=', 'Завершен')
+                                ->where('id' , '!=', $get->id)
+//                    ->where('country_id', $get->country_id)
+                                ->where('status' , '!=', 'Завершен');
+                        })
+                        ->with('country_name')
+                        ->simplepaginate(5);
+                } else{
+                    $gets =  Prognoz::orderby('star', 'asc')->
+                    orderby('start_carbon', 'asc')
+                        ->orderby('star', 'asc')
+                        ->where('status' , '!=', 'Завершен')
+                        ->where('id' , '!=', $get->id)
+                        ->where('country_id', $get->country_id)
+                        ->where('status' , '!=', 'Завершен')
+                        ->orWhere(function ($query) use ($get) {
+                            $query->where('star', $get->star)  ->orderby('star', 'asc')->
+                            orderby('start_carbon', 'asc')
+                                ->orderby('star', 'asc')
+                                ->where('status' , '!=', 'Завершен')
+                                ->where('id' , '!=', $get->id)
+//                    ->where('country_id', $get->country_id)
+                                ->where('status' , '!=', 'Завершен');
+                        })
+                        ->with('country_name')
+                        ->simplepaginate(5);
+                }
+            }else{
+                if ($get->status ==   'Завершен'){
+                    $gets =  Prognoz::orderby('star', 'asc')->
+                    orderby('start_carbon', 'asc')
+                        ->orderby('star', 'asc')->with('country_name')
+                        ->where('status' , 'Завершен')
+                        ->where('id' , '!=', $get->id)
+                        ->where('country_id', $get->country_id)
+                        ->where('status' , 'Завершен')
+                        ->with('country_name')
+                        ->simplepaginate(5);
+                } else{
+                    $gets =  Prognoz::orderby('star', 'asc')->
+                    orderby('start_carbon', 'asc')
+                        ->orderby('star', 'asc')
+                        ->where('status' , '!=', 'Завершен')
+                        ->where('id' , '!=', $get->id)
+                        ->where('country_id', $get->country_id)
+                        ->where('status' , '!=', 'Завершен')
+                        ->with('country_name')
+                        ->simplepaginate(5);
+                }
+            }
+
+            foreach ($gets as $data ){
+
+                $date_valid = \Carbon\Carbon::parse($data->start_carbon);
+                $current_time = \Carbon\Carbon::now();
+                $diff = $date_valid->diffInMinutes($current_time);
+
+                if ($diff > 0 && $diff <= 90) {
+                    $string = "Начался";
+                } elseif ($diff > 90 && \Carbon\Carbon::now() > $data->start_carbon) {
+                    $string = "Завершен";
+                } else {
+                    $string = "Начало";
+                }
+
+
+                if ($data->status == 'Завершен'){
+                    $data['style'] =  'color: #ba6161;font-size: 14px;';
+                    if ($data->show_analize == 0){
+                        $data['analize_div'] = 'display:none';
+                    }else{
+                        $get_all_attr = \App\Models\PrognozAttr::where('prognoz_id', $data->id)->where('title', '!=', '  ')->where('kf', '!=', null)->count();
+                        $get_all_attr_true = \App\Models\PrognozAttr::where('prognoz_id', $data->id)->where('title', '!=', '  ' )->where('kf', '!=', null)->where('status', 1)->count();
+                        $get_all_attr_star_true = \App\Models\PrognozAttr::where('prognoz_id', $data->id)->where('title', '!=', '  ')->where('kf', '!=', null)->where('super', 0)->where('status', 1)->count();
+                        $get_all_attr_star = \App\Models\PrognozAttr::where('prognoz_id', $data->id)->where('title', '!=', '  ')->where('kf', '!=', null)->where('super', 0)->where('super', 0)->count();
+
+                        $data['get_all_attr'] = $get_all_attr;
+                        $data['get_all_attr_true'] = $get_all_attr_true;
+                        $data['get_all_attr_star_true'] = $get_all_attr_star_true;
+                        $data['get_all_attr_star'] = $get_all_attr_star;
+
+                        $data->country_name->name = \App\Models\CountryTranslate::where('country_id' , $data->country_name->id)->where('lang', session()->get('locale'))->first()->name??$data->country_name->name;
+                        $data->liga = \App\Models\PrognozTranslate::where('prognoz_id', $data->id)->where('lang', session()->get('locale'))->first()->liga??$data->liga;
+                        $data->title = \App\Models\PrognozTranslate::where('prognoz_id', $data->id)->where('lang', session()->get('locale'))->first()->title??$data->title;
+
+
+                    }
+
+
+
+                }else{
+                    $data['style']  = ' ';
+                    $data['analize_div'] = 'display:none';
+                }
+
+                if ($data->status == 'Начался'){
+                    $string = '';
+                }elseif ($data->status == 'Завершен'){
+                    $string = __('{makros_11}');
+                }else{
+                    $string = '';
+                }
+
+                $data['string'] = $string;
+
+                if ($data->status == 'Начало'){
+
+                    $data['diforhumans']  =  Carbon::parse($data->start_carbon)->diffforhumans();
+                }else{
+                    $data['diforhumans']  = ' ';
+                }
+
+                if ($data->star == 0){
+                    $star_url = asset('public/images/cup.svg');
+                }else{
+                    $star_url = asset('uploads/'.$data->country_name->photo);
+
+                }
+                $data['star_url'] = $star_url;
+
+                if ($data->url != null && $data->url != ' '){
+                    $url = $data->url;
+                }else{
+                    $url = $data->title;
+                }
+
+                $lang =   session()->get('locale');
+
+                if ($lang == 'ru'){
+
+                }else{
+                    $data['team_one'] = $data['team_one_two'];
+                    $data['team_two'] = $data['team_two_two'];
+                    $data['team_two_two'] = null;
+                    $data['team_two_two_div'] = 'display:none';
+                    $data['team_one_two_div'] = 'display:none';
+                    $data['team_one_two'] = null;
+                }
+                $data['single_page'] = route('bet',[$url , $data->id]);
+                $data['button_text'] = __('{makros_19}');
+                $data['vsego'] = __('{makros_44}');
+                $data['lucshaya'] = __('{makros_45}');
+                $data->country_name->name = \App\Models\CountryTranslate::where('country_id' , $data->country_name->id)->where('lang', session()->get('locale'))->first()->name??$data->country_name->name;
+                $data->liga = \App\Models\PrognozTranslate::where('prognoz_id', $data->id)->where('lang', session()->get('locale'))->first()->liga??$data->liga;
+                $data->title = \App\Models\PrognozTranslate::where('prognoz_id', $data->id)->where('lang', session()->get('locale'))->first()->title??$data->title;
+
+
+            }
+
+
+            return response()->json([
+                'status' => true,
+                'data' => $gets,
+                'next_page_url' =>$gets->nextPageUrl()
+            ]);
+        }
+
+
+    if ($get->star == 0){
+        if ($get->status ==   'Завершен'){
+            $gets =  Prognoz::orderby('star', 'asc')->
+            orderby('start_carbon', 'asc')
+                ->orderby('star', 'asc')->with('country_name')
+                ->where('status' , 'Завершен')
+                ->where('id' , '!=', $get->id)
+                ->where('country_id', $get->country_id)
+                ->where('status' , 'Завершен')
+
+                ->orWhere(function ($query) use ($get) {
+                    $query->where('star', $get->star) ->orderby('star', 'asc')->
+                    orderby('start_carbon', 'asc')
+                        ->orderby('star', 'asc')
+                        ->where('status' , '!=', 'Завершен')
+                        ->where('id' , '!=', $get->id)
+//                    ->where('country_id', $get->country_id)
+                        ->where('status' , '!=', 'Завершен');
+                })
+                ->with('country_name')
+                ->simplepaginate(5);
+        } else{
+            $gets =  Prognoz::orderby('star', 'asc')->
+            orderby('start_carbon', 'asc')
+                ->orderby('star', 'asc')
+                ->where('status' , '!=', 'Завершен')
+                ->where('id' , '!=', $get->id)
+                ->where('country_id', $get->country_id)
+                ->where('status' , '!=', 'Завершен')
+                ->orWhere(function ($query) use ($get) {
+                    $query->where('star', $get->star)  ->orderby('star', 'asc')->
+                    orderby('start_carbon', 'asc')
+                        ->orderby('star', 'asc')
+                        ->where('status' , '!=', 'Завершен')
+                        ->where('id' , '!=', $get->id)
+//                    ->where('country_id', $get->country_id)
+                        ->where('status' , '!=', 'Завершен');
+                })
+                ->with('country_name')
+                ->simplepaginate(5);
+        }
+    }else{
+        if ($get->status ==   'Завершен'){
+            $gets =  Prognoz::orderby('star', 'asc')->
+            orderby('start_carbon', 'asc')
+                ->orderby('star', 'asc')->with('country_name')
+                ->where('status' , 'Завершен')
+                ->where('id' , '!=', $get->id)
+                ->where('country_id', $get->country_id)
+                ->where('status' , 'Завершен')
+                ->with('country_name')
+                ->simplepaginate(5);
+        } else{
+            $gets =  Prognoz::orderby('star', 'asc')->
+            orderby('start_carbon', 'asc')
+                ->orderby('star', 'asc')
+                ->where('status' , '!=', 'Завершен')
+                ->where('id' , '!=', $get->id)
+                ->where('country_id', $get->country_id)
+                ->where('status' , '!=', 'Завершен')
+                ->with('country_name')
+                ->simplepaginate(5);
+        }
     }
+
+
+
+
+
+
+
+        return view('bet', compact('get', 'end_date', 'newCity','end_date_two', 'gets'));
+    }
+
+
+
+
+
+
+
+
+
+
+
+
 
 
     public function generate()

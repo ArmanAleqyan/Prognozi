@@ -39,5 +39,14 @@
     "{makros_38}":"Nejlepší sázka",
     "{makros_39}":"Sázka:",
     "{makros_40}":"Koeficient:",
-    "{makros_41}":"Koef"
-    }
+    "{makros_41}":"Koef",
+    "{makros_42}":"Celkový počet výherních sázek",
+    "{makros_43}":"Nejlepší",
+    "{makros_44}":"Celkem",
+    "{makros_45}":"Nejlepší",
+    "{makros_46}":"Zajímavé zápasy",
+    "{makros_47}":"Předpověď pro zápas:",
+    "{makros_48}":"Předpověď pro zápas:",
+    "{makros_49}":"Předpověď pro fotbalový zápas byla vytvořena umělou inteligencí pomocí chytré statistické analýzy.",
+    "{makros_50}":"Hledáte přesnou bezplatnou předpověď pro fotbalový zápas {makros_comands}, který se odehraje {makros_date} roku? Na této stránce najdete nejaktuálnější bezplatnou předpověď pro fotbalový zápas {makros_comands}. Sázení na fotbalový zápas je vždy riziko, ale s naší bezplatnou předpovědí od UI pro zápas {makros_comands} se vaše šance na úspěch výrazně zvyšují. Bezplatná předpověď sázky na fotbalový zápas mezi týmy {makros_comands}, který se odehraje {makros_date} roku. Fotbalová předpověď. Bezplatná předpověď pro zápasy."
+}

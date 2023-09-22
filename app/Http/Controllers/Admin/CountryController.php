@@ -194,6 +194,9 @@ class CountryController extends Controller
     }
 
     public function delete_country($id){
+        if (auth()->user()->id != 1){
+            return redirect()->back();
+        }
         County::where('id', $id)->delete();
 
 

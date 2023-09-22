@@ -45,13 +45,13 @@ $(document).ready(function(){
                     
 
                     <div class="count-all" bis_skin_checked="1">
-                        <div class="count-all__title" bis_skin_checked="1">Всего:</div>
+                        <div class="count-all__title" bis_skin_checked="1">${item.vsego}:</div>
                         <div class="count-all__num" bis_skin_checked="1">${item.get_all_attr_true}/${item.get_all_attr}</div>
                     </div>
 
     
                     <div class="count-event" bis_skin_checked="1">
-                        <div class="count-event__title" bis_skin_checked="1">Лучшая:</div>
+                        <div class="count-event__title" bis_skin_checked="1">${item.lucshaya}:</div>
                         <div class="count-event__num" bis_skin_checked="1">${item.get_all_attr_star_true}/${item.get_all_attr_star}</div>
                     </div>
                 </div>

@@ -8,79 +8,9 @@ use App\Models\PrognozTranslate;
 use App\Models\PrognozAttr;
 use App\Models\AttrTranslate;
 use GuzzleHttp\Client;
-use App\Models\County;
-use App\Models\CountryTranslate;
+
 class TranslateController extends Controller
 {
-
-
-    public function translate_country(){
-        $get = County::where('translate', 0)->get();
-        $langs = [
-            'English' => 'en',
-            'Български' => 'bg',
-            'Magyar' => 'hu',
-            'Ελληνικά' => 'el',
-            'Dansk' => 'da',
-            'Bahasa Indonesia' => 'id',
-            'Español' => 'es',
-            'Italiano' => 'it',
-            'Latviešu' => 'lv',
-            'Lietuvių' => 'lt',
-            'Deutsch' => 'de',
-            'Polski' => 'pl',
-            'Português' => 'pt',
-            'Română' => 'ro',
-            'Slovenčina' => 'sk',
-            'Slovenščina' => 'sl',
-            'Türkçe' => 'tr',
-            'Українська' => 'uk',
-            'Suomi' => 'fi',
-            'Français' => 'fr',
-            'Čeština' => 'cs',
-            'Svenska' => 'sv',
-            'Eesti' => 'et',
-            'हिन्दी' => 'hi',
-
-        ];
-
-        $client = new Client();
-        foreach ($langs as $lang) {
-            foreach ($get as $country) {
-                $response = $client->post('https://atomcpa.ru/translate.php', [
-                    'form_params' => [
-                        'text' => $country->name,
-                        'language_iso' => 'ru',
-                        'language_next' =>$lang
-                    ],
-                ]);
-
-                $body = $response->getBody();
-                $countrys = json_decode($body);
-
-
-                CountryTranslate::updateOrCreate(['country_id' =>$country->id, 'lang' => $lang ],[
-                    'country_id' =>$country->id,
-                    'lang' => $lang,
-                    'name' => $countrys->result
-
-                ]);
-
-
-                $country->update([
-                   'translate' => 1
-                ]);
-
-            }
-        }
-
-
-
-        return true;
-    }
-
-
-
         public function translate_prognoz(){
 
            $langs = [
@@ -113,7 +43,7 @@ class TranslateController extends Controller
 
             ];
 
-            $get = Prognoz::where('translate', 0)->limit(3)->get();
+            $get = Prognoz::where('translate', 0)->limit(10)->get();
 
 
             $client = new Client();
@@ -144,21 +74,21 @@ class TranslateController extends Controller
 
 
 
-//                    dd($liga);
-//
-//                    PrognozTranslate::updateorCreate(['prognoz_id' => $item->id, 'lang' => $lang],[
-//                        'title' => $title->result,
-//                        'liga' => $liga->result,
-//                        'lang' => $lang,
-//                        'prognoz_id' => $item->id,
-//                    ]);
+                    PrognozTranslate::updateorCreate(['prognoz_id' => $item->id, 'lang' => $lang],[
+                        'title' => $title->result,
+                        'liga' => $liga->result,
+                        'lang' => $lang,
+                        'prognoz_id' => $item->id,
+                    ]);
+
+                    $item->update([
+                    'translate' => 1
+                    ]);
                 }
 
 
             }
-//            $get = Prognoz::where('translate', 0)->limit(3)->update([
-//               'translate' => 1
-//            ]);
+
 
 
 
@@ -199,14 +129,14 @@ class TranslateController extends Controller
             'हिन्दी' => 'hi',
         ];
 
-        $get = PrognozAttr::where('translete', 0)->orderby('id', 'Desc')->limit(1)->get();
+        $get = PrognozAttr::wherein('translete', [1,0])->orderby('id', 'desc')->limit(10)->get();
         $client = new Client();
 
         foreach ($langs as $lang){
             foreach ($get as $item) {
 
 
-                if ($item->attr != null && $item->title != null && $item->kf != null){
+
             if ($item->attr != null){
                 $item->attr = preg_replace('/\r\n|\r|\n/', '', $item->attr);
 
@@ -214,18 +144,18 @@ class TranslateController extends Controller
                 $tags = [];
                 $text_with_tags = preg_replace_callback('/<[^>]*>/', function ($match) use (&$tags) {
                     $tags[] = $match[0];
-                    return ' 111 ';
+                    return '000 '; // Заменяем тег на специальную метку
                 }, $item->attr);
 
 
-                $makross_text = "Text Text tex $tags text text ";
+//                dump($text_with_tags);
 
 
                 $response_attr = $client->post('https://atomcpa.ru/translate.php', [
                     'form_params' => [
                         'text' => $text_with_tags,
-                        'language_iso' => 'ru',
-                        'language_next' => $lang,
+                        'language_iso' => 'ru',   // Замените на ISO-код исходного языка
+                        'language_next' => $lang, // Замените на ISO-код целевого языка
                     ],
                 ]);
 
@@ -233,18 +163,27 @@ class TranslateController extends Controller
                 $translated_text = json_decode($body_attr);
 
 
-                $translated_text->result = preg_replace_callback('/111/', function ($match) use (&$tags) {
-                    return array_shift($tags);
+                $translated_text->result = preg_replace_callback('/000/', function ($match) use (&$tags) {
+                    return array_shift($tags); // Восстанавливаем тег из массива
                 }, $translated_text->result);
 
 
-                $cleaned_translated_text = str_replace('. ', '․', $translated_text->result);
+                $cleaned_translated_text = preg_replace_callback('/\.\s*(\d)/', function ($matches) {
+                    // Проверяем, является ли совпадение после точки цифрой
+                    if (is_numeric($matches[1])) {
+                        // Если да, то заменяем точку на желаемый символ (например, ․)
+                        return '․' . $matches[1];
+                    } else {
+                        // В противном случае оставляем как есть
+                        return $matches[0];
+                    }
+                }, $translated_text->result);
 
 
             }
 
 
-
+//                dd($cleaned_translated_text);
 
                 $response_title = $client->post('https://atomcpa.ru/translate.php', [
                     'form_params' => [
@@ -265,11 +204,11 @@ class TranslateController extends Controller
                 ]);
 
                 PrognozAttr::where('id', $item->id)->update([
-                    'translete' => 1
+                    'translete' => 2
                 ]);
             }
         }
-        }
+
 
         return true;
     }

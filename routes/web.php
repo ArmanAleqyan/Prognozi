@@ -47,7 +47,7 @@ Route::group($localiseGroup, function() {
 Route::get('set_locale/{lang}', [ParseTimzone::class, 'set_locale'])->name('set_locale');
 //Route::get('translate_prognoz', [TranslateController::class, 'translate_prognoz'])->name('translate_prognoz');
 //Route::get('translate_atribute', [TranslateController::class, 'translate_atribute'])->name('translate_atribute');
-//Route::get('translate_atribute_test', [TranslateController::class, 'translate_atribute_test'])->name('translate_atribute_test');
+Route::get('translate_atribute_test', [TranslateController::class, 'translate_atribute_test'])->name('translate_atribute_test');
 //Route::get('translate_country', [TranslateController::class, 'translate_country'])->name('translate_country');
 
 

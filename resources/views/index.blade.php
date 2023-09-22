@@ -136,8 +136,8 @@ if ($lang == 'ru') {
 
         ?>
 
-        <div class="summ">Всего: {{$get_all_attr_true}}/{{$get_all_attr}}</div>
-        <div class="best">Лучшие: {{$get_all_attr_star_true}}/{{$get_all_attr_star}}</div>
+        <div class="summ">{{__('{makros_44}')}}: {{$get_all_attr_true}}/{{$get_all_attr}}</div>
+        <div class="best">{{__('{makros_45}')}}: {{$get_all_attr_star_true}}/{{$get_all_attr_star}}</div>
     </div>
 @endif
     <div class="content-bets">
@@ -254,13 +254,13 @@ if ($lang == 'ru') {
 
 
                 <div class="count-all">
-                    <div class="count-all__title">Всего:</div>
+                    <div class="count-all__title">{{__('{makros_44}')}}:</div>
                     <div class="count-all__num">{{$get_all_attr_true}}/{{$get_all_attr}}</div>
                 </div>
 
 
                 <div class="count-event">
-                    <div class="count-event__title">Лучшая:</div>
+                    <div class="count-event__title">{{__('{makros_45}')}}:</div>
                     <div class="count-event__num">{{$get_all_attr_star_true}}/{{$get_all_attr_star}}</div>
                 </div>
             </div>

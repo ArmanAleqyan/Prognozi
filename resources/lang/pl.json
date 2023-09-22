@@ -40,5 +40,14 @@
 "{makros_38}": "Najlepszy zakład",
 "{makros_39}": "Zakład:",
 "{makros_40}": "Kurs:",
-"{makros_41}": "Kursy"
+"{makros_41}": "Kursy",
+"{makros_42}":"Całkowita liczba wygranych zakładów",
+"{makros_43}":"Najlepszy",
+"{makros_44}":"Łącznie",
+"{makros_45}":"Najlepszy",
+"{makros_46}":"Ciekawe mecze",
+"{makros_47}":"Prognoza na mecz:",
+"{makros_48}":"Prognoza na mecz:",
+"{makros_49}":"Prognoza meczu piłkarskiego została stworzona przez sztuczną inteligencję przy użyciu inteligentnej analizy statystycznej.",
+"{makros_50}":"Szukasz dokładnej darmowej prognozy na mecz piłkarski {makros_comands}, który odbędzie się {makros_date}? Na tej stronie z pewnością znajdziesz najbardziej aktualną darmową prognozę na mecz piłkarski {makros_comands}. Zakład na mecz piłkarski to zawsze ryzyko, ale z naszą darmową prognozą AI na mecz {makros_comands} Twoje szanse na sukces znacznie wzrosną. Darmowa prognoza zakładu na mecz piłkarski między drużynami {makros_comands}, który odbędzie się {makros_date}. Prognoza piłkarska. Darmowa prognoza na mecze."
 }

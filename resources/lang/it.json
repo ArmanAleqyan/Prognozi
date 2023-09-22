@@ -39,5 +39,14 @@
     "{makros_38}": "Migliore scommessa",
     "{makros_39}": "Scommessa:",
     "{makros_40}": "Coefficiente:",
-    "{makros_41}": "CF"
-    }
+    "{makros_41}": "CF",
+    "{makros_42}":"Totale scommesse vincenti",
+    "{makros_43}":"Il migliore",
+    "{makros_44}":"Totale",
+    "{makros_45}":"Il migliore",
+    "{makros_46}":"Partite interessanti",
+    "{makros_47}":"Previsione per la partita:",
+    "{makros_48}":"Previsione per la partita:",
+    "{makros_49}":"La previsione per la partita di calcio è stata creata da intelligenza artificiale utilizzando un'analisi statistica intelligente.",
+    "{makros_50}":"Stai cercando una previsione gratuita e accurata per una partita di calcio {makros_comands} che si terrà il {makros_date}? In questa pagina troverai sicuramente la previsione gratuita più aggiornata per la partita di calcio {makros_comands}. Scommettere su una partita di calcio è sempre un rischio, ma con la nostra previsione gratuita dell'IA per la partita {makros_comands}, le tue possibilità di successo aumentano notevolmente. Previsione gratuita per una scommessa sulla partita di calcio tra le squadre {makros_comands} che si svolgerà il {makros_date}. Previsione calcistica. Previsione gratuita per le partite."
+}

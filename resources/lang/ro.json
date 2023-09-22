@@ -39,5 +39,14 @@
     "{makros_38}":"Cel mai bun pariu",
     "{makros_39}":"Pariuri:",
     "{makros_40}":"Coeficient:",
-    "{makros_41}":"KF"
-  }
+    "{makros_41}":"KF",
+    "{makros_42}":"Total pariuri câștigătoare",
+    "{makros_43}":"Cel mai bun",
+    "{makros_44}":"Total",
+    "{makros_45}":"Cel mai bun",
+    "{makros_46}":"Meciuri interesante",
+    "{makros_47}":"Prognoză pentru meci:",
+    "{makros_48}":"Prognoză pentru meci:",
+    "{makros_49}":"Prognoza pentru meciul de fotbal a fost creată de inteligența artificială folosind o analiză statistică inteligentă.",
+    "{makros_50}":"Căutați o prognoză gratuită și exactă pentru meciul de fotbal {makros_comands} care va avea loc la {makros_date}? Pe această pagină veți găsi cu siguranță cea mai recentă prognoză gratuită pentru meciul de fotbal {makros_comands}. Parierea pe un meci de fotbal este întotdeauna un risc, dar cu prognoza noastră gratuită AI pentru meciul {makros_comands}, șansele dvs. de succes cresc semnificativ. Prognoză gratuită pentru pariurile pe meciul de fotbal dintre echipele {makros_comands} care va avea loc la {makros_date}. Prognoza fotbalului. Prognoză gratuită pentru meciuri."
+}

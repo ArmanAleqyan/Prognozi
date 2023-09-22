@@ -39,5 +39,14 @@
     "{makros_38}":"Parim panus",
     "{makros_39}":"Panus:",
     "{makros_40}":"Kordaja:",
-    "{makros_41}":"Kf"
-    }
+    "{makros_41}":"Kf",
+    "{makros_42}":"Võitnud panused kokku",
+    "{makros_43}":"Parim",
+    "{makros_44}":"Kokku",
+    "{makros_45}":"Parim",
+    "{makros_46}":"Huvitavad mängud",
+    "{makros_47}":"Prognoos mängu kohta:",
+    "{makros_48}":"Prognoos mängu kohta:",
+    "{makros_49}":"Jalgpallimängu prognoosi lõi tehisintellekt, kasutades nutikat statistilist analüüsi.",
+    "{makros_50}":"Otsite täpset tasuta ennustust jalgpallimängu {makros_comands} kohta, mis toimub {makros_date}? Sellel lehel leiate kindlasti kõige ajakohasema tasuta prognoosi jalgpallimängu {makros_comands} kohta. Jalgpallimängule kihlumine on alati risk, kuid meie tasuta tehisintellekti prognoosiga mängule {makros_comands} suurenevad teie eduvõimalused märkimisväärselt. Tasuta panuse prognoos jalgpallimängule meeskondade {makros_comands} vahel, mis toimub {makros_date}. Jalgpalli prognoos. Tasuta mängude prognoos."
+}

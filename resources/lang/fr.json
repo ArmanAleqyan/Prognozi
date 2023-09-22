@@ -39,5 +39,14 @@
     "{makros_38}": "Meilleur pari",
     "{makros_39}": "Pari :",
     "{makros_40}": "Cote :",
-    "{makros_41}": "Cf"
-    }
+    "{makros_41}": "Cf",
+    "{makros_42}":"Total des paris gagnants",
+    "{makros_43}":"Les meilleurs",
+    "{makros_44}":"Total",
+    "{makros_45}":"Les meilleurs",
+    "{makros_46}":"Matchs intéressants",
+    "{makros_47}":"Prévision pour le match:",
+    "{makros_48}":"Prévision pour le match:",
+    "{makros_49}":"La prévision pour le match de football a été créée par l'intelligence artificielle en utilisant une analyse statistique intelligente.",
+    "{makros_50}":"Vous cherchez une prévision gratuite et précise pour un match de football {makros_comands} qui aura lieu le {makros_date}? Sur cette page, vous trouverez certainement la prévision gratuite la plus à jour pour le match de football {makros_comands}. Parier sur un match de football est toujours un risque, mais avec notre prévision gratuite de l'IA pour le match {makros_comands}, vos chances de succès augmentent considérablement. Prévision gratuite pour un pari sur le match de football entre les équipes {makros_comands} qui aura lieu le {makros_date}. Prévision de football. Prévision gratuite pour les matches."
+}

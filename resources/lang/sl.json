@@ -40,5 +40,14 @@
     "{makros_38}": "Najboljša stava",
     "{makros_39}": "Stava:",
     "{makros_40}": "Koeficient:",
-    "{makros_41}": "KV"
-    }
+    "{makros_41}": "KV",
+    "{makros_42}":"Skupno število zmagovalnih stav",
+    "{makros_43}":"Najboljši",
+    "{makros_44}":"Skupaj",
+    "{makros_45}":"Najboljši",
+    "{makros_46}":"Zanimive tekme",
+    "{makros_47}":"Napoved za tekmo:",
+    "{makros_48}":"Napoved za tekmo:",
+    "{makros_49}":"Napoved za nogometno tekmo je bila ustvarjena z umetno inteligenco z uporabo inteligentne statistične analize.",
+    "{makros_50}":"Iščete natančno brezplačno napoved za nogometno tekmo {makros_comands}, ki bo potekala {makros_date}? Na tej strani boste zagotovo našli najnovejšo brezplačno napoved za nogometno tekmo {makros_comands}. Stava na nogometno tekmo je vedno tvegana, vendar se z našo brezplačno napovedjo AI za tekmo {makros_comands} vaše možnosti za uspeh znatno povečajo. Brezplačna napoved stav na nogometno tekmo med ekipami {makros_comands}, ki bo potekala {makros_date}. Napoved za nogomet. Brezplačna napoved za tekme."
+}
