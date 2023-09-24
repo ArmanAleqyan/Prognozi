@@ -4,7 +4,7 @@ namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 use App\Http\Controllers\TranslateController;
-
+use Illuminate\Contracts\Translation\Translator;
 class PrognozeTranslate extends Command
 {
     /**
@@ -36,11 +36,12 @@ class PrognozeTranslate extends Command
      *
      * @return int
      */
-    public function handle()
+    public function handle(Translator $translator)
     {
         $homeController = new TranslateController();
         $homeController->translate_prognoz();
-        $homeController->translate_atribute_test();
+//        $homeController->translate_atribute_test();
+        $homeController->translate_atribute_testv2($translator);
         $homeController->translate_country();
     }
 }

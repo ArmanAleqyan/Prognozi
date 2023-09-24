@@ -6,7 +6,6 @@
 {{__('{makros_47}')}} {{$get->team_one}} @if(isset($get->team_one_two))({{$get->team_one_two}})@endif - {{$get->team_two}} @if(isset($get->team_two_two))({{$get->team_two_two}})@endif, {{ $end_date}}
 @else
 {{__('{makros_47}')}} @if(isset($get->team_one_two)){{$get->team_one_two}}@endif - @if(isset($get->team_two_two)){{$get->team_two_two}}@endif, {{ $end_date}}
-
 @endif
 @endsection
 
@@ -59,12 +58,7 @@ if ($get->url != null && $get->url != ' ') {
 @endsection
 
 @section('description')
-@if(session()->get('locale' == 'ru'))
-{{__('{makros_47}')}}{{$get->team_one}}@if(isset($get->team_one_two)) ({{$get->team_one_two}})@endif - {{$get->team_two}}@if(isset($get->team_two_two)) ({{$get->team_two_two}})@endif, {{ $end_date}}. {{__('{makros_49}')}}
-@else
-{{__('{makros_47}')}}@if(isset($get->team_one_two)){{$get->team_one_two}}@endif - @if(isset($get->team_two_two)) {{$get->team_two_two}}@endif, {{ $end_date}}. {{__('{makros_49}')}}
-
-@endif
+@if(session()->get('locale' == 'ru')){{__('{makros_47}')}}{{$get->team_one}}@if(isset($get->team_one_two)) ({{$get->team_one_two}})@endif - {{$get->team_two}}@if(isset($get->team_two_two)) ({{$get->team_two_two}})@endif, {{ $end_date}}. {{__('{makros_49}')}}@else{{__('{makros_47}')}}@if(isset($get->team_one_two)){{$get->team_one_two}}@endif - @if(isset($get->team_two_two)) {{$get->team_two_two}}@endif, {{ $end_date}}. {{__('{makros_49}')}}@endif
 @endsection
 @section('content')
 

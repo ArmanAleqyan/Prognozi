@@ -13,7 +13,9 @@
         "laravel/tinker": "^2.5",
         "laravelium/sitemap": "^8.0",
         "mcamara/laravel-localization": "^1.8",
-        "symfony/dom-crawler": "^5.4"
+        "sunra/php-simple-html-dom-parser": "^1.5",
+        "symfony/dom-crawler": "^5.4",
+        "symfony/translation": "^5.4"
     },
     "require-dev": {
         "facade/ignition": "^2.5",
