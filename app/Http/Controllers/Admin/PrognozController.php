@@ -163,13 +163,16 @@ class PrognozController extends Controller
         }
 
 
+
+        $get_liga = \App\Models\Liga::where('id', $request->liga_id)->first();
         $get->update([
             'country_id' => $request->country_id,
             'star' => $request->star,
-            'title' => $request->name,
+            'title' => "Тур ".$request->name,
             'sport_type' => $request->sport_type,
             'country' => $request->country,
-            'liga' => $request->liga,
+            'liga' => $get_liga->name,
+            'liga_id' => $get_liga->id,
             'url' => $request->url,
             'team_one' => $request->team_one,
             'team_one_two' => $request->team_one_two,
@@ -283,6 +286,7 @@ class PrognozController extends Controller
 
 
 
+
         try{
                 $get_prognoz = Prognoz::where('url', $request->url)->first();
                 if ($get_prognoz != null && $request->url != null){
@@ -291,54 +295,68 @@ class PrognozController extends Controller
                        'message' => 'Таккая  Ссылка  уже  сушествует'
                     ],422);
                 }
-                if ($request->team_one_logo == null && $request->team_two_logo == null){
-                    return response()->json([
-                        'status' => false,
-                        'message' => 'Лого  команд обезательное поле'
-                    ],422);
+//                if ($request->team_one_logo == null && $request->team_two_logo == null){
+//                    return response()->json([
+//                        'status' => false,
+//                        'message' => 'Лого  команд обезательное поле'
+//                    ],422);
+//                }
+//                try{
+//                    $tiem = time();
+//                    $one_photo =  $request->team_one_logo;
+//                    $fileName = $tiem++.'.'.$one_photo->getClientOriginalExtension();
+//                    $filePath = $one_photo->move('uploads', $fileName);
+//
+//
+//                }catch (\Exception $e){
+//                    return response()->json([
+//                        'status' => false,
+//                        'message' => 'Лого  команд обезательное поле'
+//                    ],422);
+//                }
+
+//                try{
+//                    $two_photo =  $request->team_two_logo;
+//                    $fileName_two = $tiem+.10.'.'.$two_photo->getClientOriginalExtension();
+//                    $filePath_two = $two_photo->move('uploads', $fileName_two);
+//
+//                }catch (\Exception $e){
+//                    return response()->json([
+//                        'status' => false,
+//                        'message' => 'Лого  команд обезательное поле'
+//                    ],422);
+//                }
+
+
+
+                $get_liga = \App\Models\Liga::where('id', $request->liga_id)->first();
+
+                $get_command_home = \App\Models\Command::where('id', $request->command_home)->first();
+                $get_command_guest = \App\Models\Command::where('id', $request->command_guest)->first();
+                if ($get_liga->url != null){
+                    $url = str_replace(' ', '-',strtolower($get_command_home->name_two)) .'-'. str_replace(' ', '-',strtolower($get_command_guest->name_two)).'-'.$get_liga->url.'-'.Carbon::parse($request->date)->format('Y-m-d');
+                }else{
+                    $url = str_replace(' ', '-',strtolower($get_command_home->name_two)) .'-'. str_replace(' ', '-',strtolower($get_command_guest->name_two)).'-'.Carbon::parse($request->date)->format('Y-m-d');
                 }
-                try{
-                    $tiem = time();
-                    $one_photo =  $request->team_one_logo;
-                    $fileName = $tiem++.'.'.$one_photo->getClientOriginalExtension();
-                    $filePath = $one_photo->move('uploads', $fileName);
 
-
-                }catch (\Exception $e){
-                    return response()->json([
-                        'status' => false,
-                        'message' => 'Лого  команд обезательное поле'
-                    ],422);
-                }
-
-                try{
-                    $two_photo =  $request->team_two_logo;
-                    $fileName_two = $tiem+.10.'.'.$two_photo->getClientOriginalExtension();
-                    $filePath_two = $two_photo->move('uploads', $fileName_two);
-
-                }catch (\Exception $e){
-                    return response()->json([
-                        'status' => false,
-                        'message' => 'Лого  команд обезательное поле'
-                    ],422);
-                }
-
-
-
-                $create = Prognoz::create([
+                   
+                    $create = Prognoz::create([
                     'country_id' => $request->country_id,
                     'star' => $request->star,
-                   'title' => $request->name,
+                   'title' => "Тур ".$request->name,
                    'sport_type' => $request->sport_type,
                    'country' => $request->country,
-                   'liga' => $request->liga,
-                   'url' => $request->url,
-                   'team_one' => $request->team_one,
-                   'team_one_two' => $request->team_one_two,
-                   'team_two' => $request->team_two,
-                   'team_two_two' => $request->team_two_two,
-                   'team_one_logo' =>$fileName,
-                   'team_two_logo' =>$fileName_two,
+                   'liga' => $get_liga->name,
+                   'liga_id' => $get_liga->id,
+                   'url' =>  $url,
+                   'team_one' => $get_command_home->name_one,
+                   'team_one_two' => $get_command_home->name_two,
+                   'team_two' => $get_command_guest->name_one,
+                   'team_two_two' => $get_command_guest->name_two,
+                   'team_one_logo' =>$get_command_home->logo,
+                   'team_two_logo' =>$get_command_guest->logo,
+                   'command_home_id' =>$request->command_home,
+                   'command_guest_id' =>$request->command_guest,
                    'start_date' => Carbon::parse($request->date)->format('Y-m-d') ,
                    'start_time' => Carbon::parse($request->time)->format('H:i'),
                     'start_carbon' => Carbon::parse("$request->date $request->time")

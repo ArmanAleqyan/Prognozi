@@ -23,6 +23,11 @@
     <link href="https://fonts.googleapis.com/css?family=Lato:300,700|Montserrat:300,400,500,600,700|Source+Code+Pro&display=swap"
           rel="stylesheet">
 
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.10/css/jquery.dataTables.min.css">
+
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap4.min.css">
+
     <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
     <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
     <script src="https://cdn.tiny.cloud/1/YOUR_API_KEY/tinymce/5/tinymce.min.js"></script>
@@ -86,6 +91,24 @@
                 <i class="mdi mdi-speedometer"></i>
               </span>
                             <span class="menu-title">Страны</span>
+                        </a>
+                    </li>
+
+                    <li class="nav-item menu-items">
+                        <a class="nav-link" href="{{route('all_liga')}}">
+              <span class="menu-icon">
+                <i class="mdi mdi-speedometer"></i>
+              </span>
+                            <span class="menu-title">Лиги</span>
+                        </a>
+                    </li>
+
+                    <li class="nav-item menu-items">
+                        <a class="nav-link" href="{{route('all_commands')}}">
+              <span class="menu-icon">
+                <i class="mdi mdi-speedometer"></i>
+              </span>
+                            <span class="menu-title">Команды</span>
                         </a>
                     </li>
 

@@ -60,7 +60,7 @@
 
                         <div class="form-group" bis_skin_checked="1">
                             <label for="exampleSelectGender">Страна</label>
-                            <select style="color: #e2e8f0" name="country_id" class="form-control" id="exampleSelectGender">
+                            <select style="color: #e2e8f0" name="country_id" class="form-control country_select" id="exampleSelectGender">
                                 @foreach($country as $countr)
                                     @if($get->country_id == $countr->id)
                                     <option selected value="{{$countr->id}}">{{$countr->name}}</option>
@@ -74,10 +74,44 @@
 
                         <input type="hidden" name="prognoz_id" value="{{$get->id}}">
 
-                        <div class="form-group" bis_skin_checked="1">
-                            <label for="">Лига</label>
-                            <input value="{{$get->liga}}" type="text" class="form-control" id="" placeholder="Лига" name="liga" required>
+{{--                        <div class="form-group" bis_skin_checked="1">--}}
+{{--                            <label for="">Лига</label>--}}
+{{--                            <input value="{{$get->liga}}" type="text" class="form-control" id="" placeholder="Лига" name="liga" required>--}}
+{{--                        </div>--}}
+
+
+
+                        @php
+                        if ($get->liga_id != null){
+                            $get_liga = \App\Models\Liga::where('country_id', $get->country_id)->get();
+                        }else{
+                         $get_liga = \App\Models\Liga::where('country_id', $get->country_id)->get();
+                        }
+                        @endphp
+
+                        <div class="form-group display_none_div LigaSelect{{$get->country_id}}" bis_skin_checked="1">
+                            <label for="exampleSelectGender">Лига</label>
+                            <select name="liga_id"  style="color: #e2e8f0" class="remove_name_select form-control" id="exampleSelectGender">
+                                @foreach($get_liga as $liga)
+                                    <option value="{{$liga->id}}">{{$liga->name}}</option>
+                                @endforeach
+                            </select>
                         </div>
+
+                        @foreach($country as $countr)
+                            @if($countr->id != $get->country_id)
+                            <?php $get_ligas = \App\Models\Liga::where('country_id', $countr->id)->get() ?>
+                            <div  class="display_none_div form-group LigaSelect{{$countr->id}}" bis_skin_checked="1" style="display: none">
+                                <label for="exampleSelectGender">Лига</label>
+                                <select style="color: #e2e8f0" name="" class="liga_select{{$countr->id}} form-control remove_name_select" id="exampleSelectGender">
+                                    @foreach($get_ligas as $get_liga)
+                                        <option  value="{{$get_liga->id}}">{{$get_liga->name}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            @endif
+                        @endforeach
+
 
                         <div class="form-group" bis_skin_checked="1">
                             <label for="">Тур</label>
@@ -144,11 +178,18 @@
                         <br>
                         <h3>КФ</h3>
                         <br>
+                        @if(!$get->attr->isempty())
+
                         @foreach($get->attr->groupBy('group_id') as $atributes)
                         <div id="editor-container"></div>
                         <div id="input-container" bis_skin_checked="1">
                         </div>
                         @endforeach
+                        @else
+                            <div id="editor-container"></div>
+                            <div id="input-container" bis_skin_checked="1">
+                            </div>
+                            @endif
 
 
                         <button type="button" class="btn btn-inverse-light btn-fw" id="add-inputs">Добавить ещё</button>
@@ -236,6 +277,21 @@
 
     <?php $i = \App\Models\PrognozAttr::where('prognoz_id', $get->id)->orderby('id', 'desc')->first()->group_id??0;  ?>
     <script >
+
+
+
+        $('.country_select').change(function() {
+
+            // Get the selected value
+            var selectedValue = $(this).val();
+
+            $('.display_none_div').hide();
+            $('.remove_name_select').removeAttr('name');
+            $(`.LigaSelect${selectedValue}`).show()
+            $(`.liga_select${selectedValue}`).attr('name', 'liga_id')
+
+        });
+
         const formDataArray = [];
         let i = "<?php echo $i  ?>";
 
@@ -243,6 +299,7 @@
         $(document).ready(function() {
 
             $('#add-inputs').click(function() {
+
                 i++;
                 const container = $(`
             <div class="form-group delete_inputs_div" bis_skin_checked="1" data_id="${i}" >

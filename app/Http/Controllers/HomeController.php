@@ -502,7 +502,7 @@ class HomeController extends Controller
         if (session()->get('locale') == 'ru' || session()->get('locale') == null){
             $end_date = $day.' '.$mounth. ' '.$year.' '.'года?';
         }else{
-            $end_date = $day.' '.$mounth. ' '.$year.' ';
+            $end_date = $day.' '.$mounth. ' '.$year.'.';
         }
 //        $end_date = $day.' '.$mounth. ' '.$year.' '.'года';
 
@@ -811,7 +811,7 @@ class HomeController extends Controller
             'Slovenščina' => 'sl',
             'Türkçe' => 'tr',
             'Українська' => 'uk',
-            'Suomi' => 'fi',
+//            'Suomi' => 'fi',
             'Français' => 'fr',
             'Čeština' => 'cs',
             'Svenska' => 'sv',

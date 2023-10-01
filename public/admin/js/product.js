@@ -1,3 +1,102 @@
+let url = 'https://aisportsoracle.com/admin/';
+
+$('.country_select').change(function() {
+  // Get the selected value
+  var selectedValue = $(this).val();
+
+      $('.display_none_div').hide();
+      $('.remove_name_select').removeAttr('name');
+      $(`.LigaSelect${selectedValue}`).show()
+      $(`.liga_select${selectedValue}`).attr('name', 'liga_id')
+
+        const formData = new FormData;
+        formData.append("country_id", selectedValue);
+       $.ajax({
+        headers: {
+          "X-CSRF-TOKEN": $('meta[name="_token"]').attr("content"),
+        },
+        url: url+'get_commands',
+        method: "POST",
+        data: formData, // Use the FormData object
+        processData: false, // Prevent jQuery from processing data
+        contentType: false, // Prevent jQuery from setting content type
+        success: function (response) {
+          $('.command_home').html(' ');
+          $('.command_guest').html(' ');
+          $.each(response.data, function (index, item) {
+            var option = $('<option>', {
+              value: item.id,
+              text: item.name_one,
+            });
+            var option_guest = $('<option>', {
+              value: item.id,
+              text: item.name_one,
+            });
+            $('.command_home').append(option);
+            $('.command_guest').append(option_guest);
+          });
+        },
+        error: function (xhr, status, error) {
+          // Handle errors here
+          $(".submit_button").show();
+          if (xhr.responseJSON && xhr.responseJSON.message) {
+            alert(xhr.responseJSON.message);
+          }
+        },
+      });
+
+});
+
+$('.remove_name_select').change(function() {
+  // Get the selected value
+  var selectedValue = $(this).val();
+
+
+
+  const formData = new FormData;
+  formData.append("liga_id", selectedValue);
+  $.ajax({
+    headers: {
+      "X-CSRF-TOKEN": $('meta[name="_token"]').attr("content"),
+    },
+    url: url+'get_commands',
+    method: "POST",
+    data: formData, // Use the FormData object
+    processData: false, // Prevent jQuery from processing data
+    contentType: false, // Prevent jQuery from setting content type
+    success: function (response) {
+
+      $('.command_home').html(' ');
+      $('.command_guest').html(' ');
+      $.each(response.data, function (index, item) {
+        var option = $('<option>', {
+          value: item.id,
+          text: item.name_one,
+        });
+        var option_guest = $('<option>', {
+          value: item.id,
+          text: item.name_one,
+        });
+        $('.command_home').append(option);
+        $('.command_guest').append(option_guest);
+      });
+    },
+    error: function (xhr, status, error) {
+      // Handle errors here
+      $(".submit_button").show();
+      if (xhr.responseJSON && xhr.responseJSON.message) {
+        alert(xhr.responseJSON.message);
+      }
+    },
+  });
+
+});
+
+
+
+
+
+
 const formDataArray = [];
 let i = 0;
 let bool = true;

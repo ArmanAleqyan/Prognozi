@@ -1,5 +1,8 @@
 User-agent: *
 Allow: /
+Disallow: /set_locale/
+Disallow: /set_timezone/
+Disallow: /admin/
 
 Host: https://aisportsoracle.com/
 Sitemap: https://aisportsoracle.com/sitemap.xml

@@ -7,8 +7,11 @@ use \App\Http\Controllers\HomeController;
 use App\Http\Controllers\Admin\AdminLoginController;
 use \App\Http\Controllers\Admin\PrognozController;
 use \App\Http\Controllers\Admin\CountryController;
+use \App\Http\Controllers\Admin\LigaController;
+use \App\Http\Controllers\Admin\CommandController;
 use \App\Http\Controllers\ParseTimzone;
 use \App\Http\Controllers\TranslateController;
+use \App\Http\Controllers\IndexingController;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
 /*
@@ -47,11 +50,12 @@ Route::group($localiseGroup, function() {
 Route::get('set_locale/{lang}', [ParseTimzone::class, 'set_locale'])->name('set_locale');
 //Route::get('translate_prognoz', [TranslateController::class, 'translate_prognoz'])->name('translate_prognoz');
 //Route::get('translate_atribute', [TranslateController::class, 'translate_atribute'])->name('translate_atribute');
-Route::get('translate_atribute_test', [TranslateController::class, 'translate_atribute_test'])->name('translate_atribute_test');
-Route::get('translate_atribute_testv2', [TranslateController::class, 'translate_atribute_testv2'])->name('translate_atribute_testv2');
+//Route::get('translate_atribute_test', [TranslateController::class, 'translate_atribute_test'])->name('translate_atribute_test');
+//Route::get('translate_atribute_testv2', [TranslateController::class, 'translate_atribute_testv2'])->name('translate_atribute_testv2');
 //Route::get('translate_country', [TranslateController::class, 'translate_country'])->name('translate_country');
 
 
+Route::get('indexing', [IndexingController::class, 'indexing'])->name('indexing');
 
 
 
@@ -71,6 +75,23 @@ Route::prefix('admin')->group(function () {
     });
 
     Route::middleware(['AuthUser'])->group(function () {
+
+        Route::get('all_commands', [CommandController::class, 'all_commands'])->name('all_commands');
+        Route::get('create_command', [CommandController::class, 'create_command'])->name('create_command');
+        Route::get('delete_command/command_id={id}', [CommandController::class, 'delete_command'])->name('delete_command');
+        Route::get('single_page_command/command_id={id}', [CommandController::class, 'single_page_command'])->name('single_page_command');
+        Route::get('delete_liga_for_command/liga_id={id}', [CommandController::class, 'delete_liga_for_command'])->name('delete_liga_for_command');
+        Route::post('create_command_post', [CommandController::class, 'create_command_post'])->name('create_command_post');
+        Route::post('update_command', [CommandController::class, 'update_command'])->name('update_command');
+        Route::post('get_commands', [CommandController::class, 'get_commands'])->name('get_commands');
+
+        
+        Route::get('all_liga', [LigaController::class, 'all_liga'])->name('all_liga');
+        Route::get('create_liga', [LigaController::class, 'create_liga'])->name('create_liga');
+        Route::get('delete_liga/liga_id={id}', [LigaController::class, 'delete_liga'])->name('delete_liga');
+        Route::get('single_page_liga/liga_id={id}', [LigaController::class, 'single_page_liga'])->name('single_page_liga');
+        Route::post('create_liga_post', [LigaController::class, 'create_liga_post'])->name('create_liga_post');
+        Route::post('update_liga', [LigaController::class, 'update_liga'])->name('update_liga');
 
     Route::get('HomePage', [AdminLoginController::class,'HomePage'])->name('HomePage');
     Route::get('logoutAdmin', [AdminLoginController::class,'logoutAdmin'])->name('logoutAdmin');

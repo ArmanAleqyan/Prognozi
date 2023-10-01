@@ -58,7 +58,7 @@ if ($get->url != null && $get->url != ' ') {
 @endsection
 
 @section('description')
-@if(session()->get('locale' == 'ru')){{__('{makros_47}')}}{{$get->team_one}}@if(isset($get->team_one_two)) ({{$get->team_one_two}})@endif - {{$get->team_two}}@if(isset($get->team_two_two)) ({{$get->team_two_two}})@endif, {{ $end_date}}. {{__('{makros_49}')}}@else{{__('{makros_47}')}}@if(isset($get->team_one_two)){{$get->team_one_two}}@endif - @if(isset($get->team_two_two)) {{$get->team_two_two}}@endif, {{ $end_date}}. {{__('{makros_49}')}}@endif
+@if(session()->get('locale' == 'ru' || session()->get('locale') == null)){{__('{makros_47}')}}{{ $get->team_one}}@if(isset($get->team_one_two)) ({{$get->team_one_two}})@endif - {{$get->team_two}}@if(isset($get->team_two_two)) ({{$get->team_two_two}})@endif, {{ $end_date}} {{__('{makros_49}')}}@else{{__('{makros_47}')}} @if(isset($get->team_one_two)){{$get->team_one_two}}@endif - @if(isset($get->team_two_two)){{$get->team_two_two}}@endif, {{$end_date}} {{__('{makros_49}')}}@endif
 @endsection
 @section('content')
 
@@ -150,7 +150,7 @@ if ($diff >= 0 && $diff <= 105  && $date_valid->isPast()) {
                 </div>
                 <div class="team-1-name">{{$get->team_one}}</div>
                 @if(isset($get->team_one_two))
-                <div class="team-1-name" style="font-size: 11px">({{$get->team_one_two}})</div>
+                <div class="team-1-name" style="font-size: 12px">({{$get->team_one_two}})</div>
                 @endif
             </div>
             @else
@@ -160,7 +160,7 @@ if ($diff >= 0 && $diff <= 105  && $date_valid->isPast()) {
                 </div>
                 <div class="team-1-name">{{$get->team_one_two}}</div>
                 @if(isset($get->team_one_two))
-                <div class="team-1-name" style="font-size: 11px"></div>
+                <div class="team-1-name" style="font-size: 12px"></div>
                 @endif
             </div>
             @endif
@@ -176,7 +176,7 @@ if ($diff >= 0 && $diff <= 105  && $date_valid->isPast()) {
                 </div>
                 <div class="team-2-name">{{$get->team_two}}</div>
                 @if(isset($get->team_two_two))
-                <div class="team-2-name" style="font-size: 11px">({{$get->team_two_two}})</div>
+                <div class="team-2-name" style="font-size: 12px">({{$get->team_two_two}})</div>
                 @endif
             </div>
             @else
@@ -187,7 +187,7 @@ if ($diff >= 0 && $diff <= 105  && $date_valid->isPast()) {
                 </div>
                 <div class="team-2-name">{{$get->team_two_two}}</div>
                 @if(isset($get->team_two_two))
-                <div class="team-2-name" style="font-size: 11px"></div>
+                <div class="team-2-name" style="font-size: 12px"></div>
                 @endif
             </div>
             @endif
@@ -371,7 +371,7 @@ if ($diff >= 0 && $diff <= 105  && $date_valid->isPast()) {
 
 
 </div>
-
+@if(!$gets->iseMpty())
 <h2>{{__('{makros_46}')}}</h2>
 <div class="content-bets">
     @foreach($gets as $data)
@@ -440,7 +440,7 @@ if ($diff >= 0 && $diff <= 105  && $date_valid->isPast()) {
                 @if(session()->get('locale') == 'ru')
                 <div class="team-1-name" style="display: flex; justify-content: center;">{{$data->team_one}}</div>
                 @if(isset($data->team_one_two))
-                <div class="team-1-name__alternate" style="display: flex; justify-content: center; font-size: 10px">({{$data->team_one_two}})</div>
+                <div class="team-1-name__alternate" style="display: flex; justify-content: center;">({{$data->team_one_two}})</div>
                 @endif
                 @else
                 @if(isset($data->team_one_two))
@@ -457,7 +457,7 @@ if ($diff >= 0 && $diff <= 105  && $date_valid->isPast()) {
                     {{$data->team_two}}
                 </div>
                 @if(isset($data->team_two_two))
-                <div class="team-2-name__alternate" style="text-align: center ; font-size:10px; ;">
+                <div class="team-2-name__alternate" style="text-align: center ; font-size:12px; ;">
                     ({{$data->team_two_two}})
                 </div>
                 @endif
@@ -515,7 +515,7 @@ if ($diff >= 0 && $diff <= 105  && $date_valid->isPast()) {
     <p class="pagination" style="cursor: pointer; color: #e2e8f0" data_url="{{$gets->nextPageUrl()}}">{{__('{makros_20}')}}</p>
 </div>
 @endif
-
+@endif
 
 <div class="seo-text">
     <?php $text = __('{makros_50}');

@@ -167,7 +167,6 @@ return [
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
         Laravelium\Sitemap\SitemapServiceProvider::class,
-
         /*
          * Package Service Providers...
          */
