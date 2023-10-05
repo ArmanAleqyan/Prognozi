@@ -18,6 +18,10 @@ class TranslateController extends Controller
 {
 
 
+    public function news(){
+        
+    }
+
     public function translate_country(){
         $get = County::where('translate', 0)->get();
         $langs = [
