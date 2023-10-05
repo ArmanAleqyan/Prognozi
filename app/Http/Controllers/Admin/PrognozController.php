@@ -112,6 +112,8 @@ class PrognozController extends Controller
             'title' => $request->title,
             'super' => $request->super,
             'status' => $request->status,
+            'sobitie' => $request->sobitie,
+            'risk' => $request->risk,
 
         ]);
 
@@ -133,7 +135,7 @@ class PrognozController extends Controller
 
     public function update_prognoz(Request $request){
 
-    
+
 
         $get = Prognoz::where('id', $request->prognoz_id)->first();
         $get_url = Prognoz::where('url', $request->url)->where('id' ,'!=', $request->prognoz_id)->first();
@@ -144,9 +146,9 @@ class PrognozController extends Controller
             ],422);
         }
 
-
+        $tiem = time();
         if (isset($request->team_one_logo)){
-            $tiem = time();
+
             $one_photo =  $request->team_one_logo;
             $fileName_one_photo = $tiem++.'.'.$one_photo->getClientOriginalExtension();
             $filePath = $one_photo->move('uploads', $fileName_one_photo);
@@ -168,7 +170,7 @@ class PrognozController extends Controller
         $get->update([
             'country_id' => $request->country_id,
             'star' => $request->star,
-            'title' => "Тур ".$request->name,
+            'title' => $request->name,
             'sport_type' => $request->sport_type,
             'country' => $request->country,
             'liga' => $get_liga->name,
@@ -182,12 +184,30 @@ class PrognozController extends Controller
             'team_two_logo' =>$fileName_two,
             'start_date' => Carbon::parse($request->date)->format('Y-m-d') ,
             'start_time' => Carbon::parse($request->time)->format('H:i'),
-            'start_carbon' => Carbon::parse("$request->date $request->time")
+            'start_carbon' => Carbon::parse("$request->date $request->time"),
+
         ]);
 
 
+            $get_attr_analize = PrognozAttr::where('prognoz_id', $request->prognoz_id)->where('group_id', 9999999999)->first();
 
-        $last_attr =  PrognozAttr::where('prognoz_id', $request->prognoz_id)->orderby('id', 'desc')->first();
+            if ($get_attr_analize != null){
+                PrognozAttr::where('prognoz_id', $request->prognoz_id)->where('group_id', 9999999999)->update([
+                    'attr' => $request->analize
+                ]);
+            }else{
+                PrognozAttr::create([
+                    'prognoz_id' => $request->prognoz_id,
+                    'attr' => $request->analize,
+                    'group_id' => 9999999999
+                ]);
+            }
+
+
+
+
+
+        $last_attr =  PrognozAttr::where('prognoz_id', $request->prognoz_id)->where('group_id', '!=', 9999999999)->orderby('id', 'desc')->first();
 
         if ($last_attr != null){
             $is = $last_attr->group_id +1;
@@ -197,7 +217,6 @@ class PrognozController extends Controller
 
 
         if ( isset($request->datas) ){
-//                    dd($request->datas);
 
             $i = 100;
             foreach ($request->datas as $rty){
@@ -222,6 +241,8 @@ class PrognozController extends Controller
                         'attr' => $text,
                         'group_id' =>$id,
                         'super' =>$decode->super,
+                        'sobitie' => $decode->sobitie,
+                        'risk' => $decode->risk,
                     ]);
                 }
 
@@ -285,8 +306,6 @@ class PrognozController extends Controller
 
 
 
-
-
         try{
                 $get_prognoz = Prognoz::where('url', $request->url)->first();
                 if ($get_prognoz != null && $request->url != null){
@@ -338,7 +357,9 @@ class PrognozController extends Controller
                 }else{
                     $url = str_replace(' ', '-',strtolower($get_command_home->name_two)) .'-'. str_replace(' ', '-',strtolower($get_command_guest->name_two)).'-'.Carbon::parse($request->date)->format('Y-m-d');
                 }
+            $url = str_replace('-|-', '-', $url);
 
+                
                    
                     $create = Prognoz::create([
                     'country_id' => $request->country_id,
@@ -361,8 +382,16 @@ class PrognozController extends Controller
                    'start_time' => Carbon::parse($request->time)->format('H:i'),
                     'start_carbon' => Carbon::parse("$request->date $request->time")
                 ]);
+
+                    if (isset($request->analize)){
+                        PrognozAttr::create([
+                            'prognoz_id' => $create->id,
+                            'attr' => $request->analize,
+                            'group_id' => 9999999999
+                        ]);
+                    }
+
                 if ( isset($request->datas) ){
-//                    dd($request->datas);
 
                     $i = 100;
                     foreach ($request->datas as $rty){
@@ -387,6 +416,8 @@ class PrognozController extends Controller
                                     'attr' => $text,
                                     'group_id' =>$id,
                                     'super' =>$decode->super??0,
+                                    'sobitie' => $decode->sobitie,
+                                    'risk' => $decode->risk,
                                 ]);
                         }
 

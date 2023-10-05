@@ -39,8 +39,10 @@ class generatexml extends Command
     public function handle()
     {
 //        /usr/bin/php /usr/bin/php /var/www/www-root/data/www/aisportsoracle.com/artisan  xml:xml
-        $homeController = new HomeController();
-        $homeController->generate();
+
+
+  $homeController = new HomeController();
+  $homeController->generate();
 
     }
 }

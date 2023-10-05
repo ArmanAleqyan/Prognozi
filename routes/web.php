@@ -67,9 +67,10 @@ Route::get('set_timzone/{utc}', [ParseTimzone::class, 'set_timzone'])->name('set
 
 
 
-
 Route::prefix('admin')->group(function () {
+
     Route::middleware(['NoAuthUser'])->group(function () {
+
         Route::get('/login',[AdminLoginController::class,'login'])->name('login');
         Route::post('/logined',[AdminLoginController::class,'logined'])->name('logined');
     });

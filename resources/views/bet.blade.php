@@ -273,15 +273,111 @@ if ($diff >= 0 && $diff <= 105  && $date_valid->isPast()) {
 <div class="all-bets">
     @foreach($get->attr->groupBy('group_id') as $atributes)
 
+        @php
+            $new_date = \Carbon\Carbon::parse('04.10.2023 18.00')
+            @endphp
+        @if($new_date <= $get->updated_at)
+     <div class="bet @if($atributes[0]->super == 0 && $atributes[0]->super != null) favorite-bet @endif">
+
+        <div class="pre-info">
+            @if($atributes[0]->super == 0 && $atributes[0]->super != null)
+            <div class="favorite">
+                <div>
+                    {{-- Лучшая ставка--}}
+                    {{__('{makros_38}')}}
+                </div>
+
+            </div>
+            @endif
+        </div>
+
+        <div class="row-1  @if($atributes[0]->super == 0 && $atributes[0]->super != null) favorite-bet @endif">
+
+            <div>
+                @foreach($atributes as $atribute)
+                @if($atribute->title != null && $atribute->title != ' ' && $atribute->kf != null && $atribute->kf != ' ' )
+                <div class="bet__variant favorite">
+
+                    <table id="favorite-table-new" class="favorite-table">
+                        <tr>
+                            @if($get->show_analize == 1)
+                            <td rowspan="0" width="10px" style="background: @if($atribute->status == 1) #6DDA6B; @else #FF3030 @endif "></td>
+                            @endif
+                            <th>{{__('{markos_51}')}}</th>
+                            @if($atribute->title != null && $atribute->title != ' ')
+                            <th>{{__('{makros_39}')}}</th>
+                            @endif
+                            @if($atribute->kf != null && $atribute->kf != ' ')
+                            <th>{{ __('{makros_41}') }}</th>
+                            @endif
+                            <th>{{__('{makros_54}')}}</th>
+                        </tr>
+                        <tr>
+                            @if($atribute->title != null && $atribute->title != ' ')
+                            <?php $get_attr_trans = \App\Models\AttrTranslate::where('lang', session()->get('locale'))->where('attr_id', $atribute->id)->first(); ?>
+                            <td><a class="variant" href="#">{{$get_attr_trans->sobitie??$atribute->sobitie}}</a></td>
+                            @if($get_attr_trans == null)
+                            <td><a class="variant" href="#">{{$get_attr_trans->title??$atribute->title}}</a></td>
+                            @else
+                            <td><a class="variant" href="#"> {{str_replace('“', ' ',  str_replace('„', ' ',$get_attr_trans->title) ) }}</a></td>
+                            @endif
+                            @endif
+                            @if($atribute->kf != null && $atribute->kf != ' ')
+                            <td><a class="ratio" href="#">{{$atribute->kf}}</a></td>
+                            @endif
+                            <td><a class="ratio" href="#">{{$get_attr_trans->risk??$atribute->risk}}</a></td>
+
+                        </tr>
+                    </table>
+
+                </div>
+                @endif
+
+            </div>
+            <img class="arrow" src="{{asset('public/images/arrow.svg')}}" alt="arrow">
+        </div>
+
+        <div class="bet__text-generation">
+
+            <div id="bet__text-generation-new" class="bet__text-generation-new">
+                <div class="bet__analys">
+                    @if($atribute->group_id == 9999999999)
+                    <span class="bet__analys__title">{{__('{makros_53}')}}:</span>
+                    @endif
+
+                    <p class="analys__text">
+                        @if($atribute->attr != null || $atribute->attr != ' ')
+
+                            <?php $get_attr_trans = \App\Models\AttrTranslate::where('lang', session()->get('locale'))->where('attr_id', $atribute->id)->first(); ?>
+
+                            @if($get_attr_trans == null)
+                                {!! $atribute->attr !!}
+                            @else
+
+                                @if($get_attr_trans->attr != null || $get_attr_trans->attr != ' ')
+                                    {{-- {!! $get_attr_trans->attr !!}--}}
+                                    {!!str_replace('“', ' ', str_replace('„', ' ', str_replace('  ', '',   str_replace(' :', ':',$get_attr_trans->attr) ) ) ) !!}
+                                @else
+                                    {!! $atribute->attr !!}
+                                @endif
+                            @endif
+                        @endif
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+            @endforeach
+
+            @else
+
+
     <div class="bet @if($atributes[0]->super == 0 && $atributes[0]->super != null) favorite-bet @endif">
 
         <div class="pre-info">
             @if($atributes[0]->super == 0 && $atributes[0]->super != null)
             <div class="favorite">
                 <div>
-                    <!-- 🔥 -->
-                    <!-- <img src="/public/public/images/crown.svg" alt="crown.svg"> -->
-
                     {{-- Лучшая ставка--}}
                     {{__('{makros_38}')}}
                 </div>
@@ -324,6 +420,8 @@ if ($diff >= 0 && $diff <= 105  && $date_valid->isPast()) {
                         </tr>
                     </table>
 
+                    
+
                     <!-- 
                             @if($atribute->title != null && $atribute->title != ' ')
                             {{-- Ставка:--}}
@@ -345,6 +443,9 @@ if ($diff >= 0 && $diff <= 105  && $date_valid->isPast()) {
         </div>
 
         <div class="bet__text-generation">
+
+  
+
             @foreach($atributes as $atribute)
             @if($atribute->attr != null || $atribute->attr != ' ')
 
@@ -366,6 +467,8 @@ if ($diff >= 0 && $diff <= 105  && $date_valid->isPast()) {
             @endforeach
         </div>
     </div>
+
+            @endif
     @endforeach
 
 

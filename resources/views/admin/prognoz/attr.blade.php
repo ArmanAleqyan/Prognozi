@@ -28,6 +28,28 @@
             })
         </script>
     @endif
+    @php
+    $sobitie = [
+   "Исход матча",
+    "Исход матча (Двойной шанс)",
+    "Тотал голов",
+    "Фора (Гандикап)",
+    "Забьют - не забьют",
+    "Индивидуальный тотал голов",
+    "Точный счет",
+    "Исход и тотал голов",
+    "Исход и обе забьют",
+    "Исход 1-го тайма",
+    "Тотал голов в 1-м тайме",
+    "Угловые: Исходы",
+    "Тотал угловых",
+    "Индивидуальный тотал угловых",
+    "Желтые карты: Исход",
+    "Тотал желтых карт",
+    "Индивидуальный тотал желтых карт",
+    ];
+    $risk = ["Минимальный", "Низкий", "Средний" , "Высокий" ,"Экстремальный"];
+    @endphp
     <div class="content-wrapper" bis_skin_checked="1">
         <br>
         <br>
@@ -44,17 +66,51 @@
                         @csrf
                         <br>
 
+                            <div style="display: flex; justify-content: space-between">
+                                <label>Событие</label>
+                                <label>Риск </label>
+
+                            </div>
+                            <div style="display: flex; justify-content: space-between">
+
+                                <select style="color: #e2e8f0; width: 30%" name="sobitie" class="form-control" id="exampleSelectGender">
+                                @foreach($sobitie as $sob)
+                                    @if($sob == $get->sobitie)
+                                    <option selected value="{{$sob}}">{{$sob}}</option>
+                                    @else
+                                            <option value="{{$sob}}">{{$sob}}</option>
+
+                                        @endif
+                                    @endforeach
+                                </select>
+
+                                <select style="color: #e2e8f0; width: 30%" name="risk" class="form-control" id="exampleSelectGender">
+                                    @foreach($risk as $ri)
+                                        @if($ri == $get->risk)
+                                        <option selected value="{{$ri}}">{{$ri}}</option>
+                                        @else
+                                            <option value="{{$ri}}">{{$ri}}</option>
+
+                                        @endif
+                                        @endforeach
+                                </select>
+
+
+                            </div>
+                            <br>
+
+
                             <input type="hidden" name="group_id" value="{{$get->group_id}}">
                         <div class="form-group" bis_skin_checked="1">
                             <label for="">Название</label>
-                            <input value="{{$get->title}}" type="text" class="form-control" id="" placeholder="Название" name="title" >
+                            <input  value="{{$get->title}}" type="text" class="form-control" id="" placeholder="Название" name="title" >
                         </div>
 
                         <input type="hidden" name="attr_id" value="{{$get->id}}">
 
                         <div class="form-group" bis_skin_checked="1">
                             <label for="">Кф</label>
-                            <input value="{{$get->kf}}" type="text" class="form-control" id="" placeholder="Кф" name="kf">
+                            <input  value="{{$get->kf}}" type="text" class="form-control" id="" placeholder="Кф" name="kf">
                         </div>
 
                             <div class="form-group" bis_skin_checked="1">
@@ -132,6 +188,7 @@
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
     <script>
+
 
         tinymce.init({
             selector: `#myTextarea`,

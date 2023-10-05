@@ -48,5 +48,8 @@
     "{makros_47}":"Előrejelzés a mérkőzésre:",
     "{makros_48}":"Előrejelzés a mérkőzésre:",
     "{makros_49}":"A labdarúgó-mérkőzés előrejelzését mesterséges intelligencia hozta létre okos statisztikai elemzés segítségével.",
-    "{makros_50}":"Keres egy pontos és ingyenes előrejelzést egy {makros_comands} labdarúgó-mérkőzésre, amely {makros_date}-án lesz? Ezen az oldalon biztosan megtalálja a legfrissebb ingyenes előrejelzést a {makros_comands} labdarúgó-mérkőzésre. Egy labdarúgó-mérkőzésre tétetni mindig kockázat, de az AI által készített ingyenes előrejelzésünkkel a {makros_comands} mérkőzésre a siker esélyei jelentősen növekednek. Ingyenes tét előrejelzés egy labdarúgó-mérkőzésre a {makros_comands} csapatok között, amely {makros_date}-án lesz. Labdarúgás előrejelzés. Ingyenes mérkőzés előrejelzés."
+    "{makros_50}":"Keres egy pontos és ingyenes előrejelzést egy {makros_comands} labdarúgó-mérkőzésre, amely {makros_date}-án lesz? Ezen az oldalon biztosan megtalálja a legfrissebb ingyenes előrejelzést a {makros_comands} labdarúgó-mérkőzésre. Egy labdarúgó-mérkőzésre tétetni mindig kockázat, de az AI által készített ingyenes előrejelzésünkkel a {makros_comands} mérkőzésre a siker esélyei jelentősen növekednek. Ingyenes tét előrejelzés egy labdarúgó-mérkőzésre a {makros_comands} csapatok között, amely {makros_date}-án lesz. Labdarúgás előrejelzés. Ingyenes mérkőzés előrejelzés.",
+    "{markos_51}": "Esemény",
+    "{makros_53}":"Elemzés",
+    "{makros_54}":"Kockázat"
 }

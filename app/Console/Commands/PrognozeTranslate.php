@@ -5,6 +5,7 @@ namespace App\Console\Commands;
 use Illuminate\Console\Command;
 use App\Http\Controllers\TranslateController;
 use Illuminate\Contracts\Translation\Translator;
+
 class PrognozeTranslate extends Command
 {
     /**

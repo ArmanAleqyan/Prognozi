@@ -49,5 +49,8 @@
 "{makros_47}":"Prognoza na mecz:",
 "{makros_48}":"Prognoza na mecz:",
 "{makros_49}":"Prognoza meczu piłkarskiego została stworzona przez sztuczną inteligencję przy użyciu inteligentnej analizy statystycznej.",
-"{makros_50}":"Szukasz dokładnej darmowej prognozy na mecz piłkarski {makros_comands}, który odbędzie się {makros_date}? Na tej stronie z pewnością znajdziesz najbardziej aktualną darmową prognozę na mecz piłkarski {makros_comands}. Zakład na mecz piłkarski to zawsze ryzyko, ale z naszą darmową prognozą AI na mecz {makros_comands} Twoje szanse na sukces znacznie wzrosną. Darmowa prognoza zakładu na mecz piłkarski między drużynami {makros_comands}, który odbędzie się {makros_date}. Prognoza piłkarska. Darmowa prognoza na mecze."
+"{makros_50}":"Szukasz dokładnej darmowej prognozy na mecz piłkarski {makros_comands}, który odbędzie się {makros_date}? Na tej stronie z pewnością znajdziesz najbardziej aktualną darmową prognozę na mecz piłkarski {makros_comands}. Zakład na mecz piłkarski to zawsze ryzyko, ale z naszą darmową prognozą AI na mecz {makros_comands} Twoje szanse na sukces znacznie wzrosną. Darmowa prognoza zakładu na mecz piłkarski między drużynami {makros_comands}, który odbędzie się {makros_date}. Prognoza piłkarska. Darmowa prognoza na mecze.",
+  "{markos_51}": "Wydarzenie",
+  "{makros_53}":"Analiza",
+  "{makros_54}":"Ryzyko"
 }

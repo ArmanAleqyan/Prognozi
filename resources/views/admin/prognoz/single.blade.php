@@ -174,9 +174,17 @@
                                 </div>
                             </div>
                         </div>
+                        @php
+                            $get_analize = \App\Models\PrognozAttr::where('prognoz_id', $get->id)->where('group_id', 9999999999)->first();
+                            @endphp
+                        <div class="form-group" bis_skin_checked="1">
+                            <label for="exampleSelectGender">Анализ</label>
+                            <textarea name="analize" id="tinymceanalize">@if(isset($get_analize)){{$get_analize->attr}}@endif</textarea>
+                        </div>
+
                         <br>
                         <br>
-                        <h3>КФ</h3>
+                        <h3>Событие</h3>
                         <br>
                         @if(!$get->attr->isempty())
 
@@ -223,6 +231,8 @@
                                             <th> Название </th>
                                             <th> КФ</th>
                                             <th> Лучшая ставка</th>
+                                            <th> Риск</th>
+                                            <th> Событие</th>
                                         </tr>
                                         </thead>
                                         @foreach($get->attr->where('attr', '!=', null) as $attr)
@@ -232,10 +242,11 @@
                                             <td> {{$attr->kf}}</td>
                                                 @if($attr->super == 0 && $attr->super != null)
                                                 <td>Да</td>
-
                                             @else
                                                 <td>Нет</td>
                                                 @endif
+                                            <td>{{$attr->risk}}</td>
+                                            <td>{{$attr->sobitie}}</td>
                                             <td style="display: flex; justify-content: flex-end"><a  href="{{route('single_page_prognoz_attr', $attr->id)}}" class="btn btn-inverse-warning btn-fw">Редактировать</a></td>
                                         </tr>
 
@@ -254,7 +265,14 @@
     </div>
 
 
-
+    <script>
+        tinymce.init({
+            height: "400px",
+            selector: `#tinymceanalize`,
+            plugins: "link image lists colorpicker",
+            toolbar:  "undo redo | styleselect | bold italic | forecolor | link image | bullist numlist",
+        });
+    </script>
 
 
 
@@ -298,11 +316,49 @@
 
         $(document).ready(function() {
 
+            const option_one_array = [
+                "Исход матча",
+                "Исход матча (Двойной шанс)",
+                "Тотал голов",
+                "Фора (Гандикап)",
+                "Забьют - не забьют",
+                "Индивидуальный тотал голов",
+                "Точный счет",
+                "Исход и тотал голов",
+                "Исход и обе забьют",
+                "Исход 1-го тайма",
+                "Тотал голов в 1-м тайме",
+                "Угловые: Исходы",
+                "Тотал угловых",
+                "Индивидуальный тотал угловых",
+                "Желтые карты: Исход",
+                "Тотал желтых карт",
+                "Индивидуальный тотал желтых карт",
+            ];
+            const option_two_array = ["Минимальный", "Низкий", "Средний" , "Высокий" ,"Экстремальный"];
             $('#add-inputs').click(function() {
 
                 i++;
                 const container = $(`
             <div class="form-group delete_inputs_div" bis_skin_checked="1" data_id="${i}" >
+      <div style="display: flex; justify-content: space-between">
+                    <label>Событие</label>
+                    <label>Риск </label>
+
+                </div>
+                <div style="display: flex; justify-content: space-between">
+
+                          <select style="color: #e2e8f0; width: 30%" name="data[${i}][sobitie]" class="form-control" id="exampleSelectGender">
+
+                                                                </select>
+
+                     <select style="color: #e2e8f0; width: 30%" name="data[${i}][risk]" class="form-control" id="exampleSelectGender">
+
+                                                                </select>
+
+
+                </div>
+                <br>
                 <div style="display: flex; justify-content: space-between">
                     <label>Название</label>
                     <label>КФ
@@ -310,8 +366,8 @@
                 <label for="exampleSelectGender">Лучшая ставка</label>
                 </div>
                 <div style="display: flex; justify-content: space-between">
-                    <input style="width: 30%" name="data[${i}][start_time]" type="text" class="form-control data" id="exampleInputName1" placeholder="Название" >
-                    <input style="-webkit-appearance: none; width: 30%" name="data[${i}][price]" type="text" class="form-control data" id="exampleInputName1" placeholder="КФ">
+                    <input required style="width: 30%" name="data[${i}][start_time]" type="text" class="form-control data" id="exampleInputName1" placeholder="Название" >
+                    <input required style="-webkit-appearance: none; width: 30%" name="data[${i}][price]" type="text" class="form-control data" id="exampleInputName1" placeholder="КФ">
                     <input name="data[${i}][id]" type="hidden" value="${i}" class="form-control data" id="exampleInputName1" placeholder="КФ">
      <div class="form-group" bis_skin_checked="1">
 
@@ -321,11 +377,9 @@
                                                                 </select>
                         </div>
                 </div>
-                <div class="new_inputs${i}">
 
-                    </div>
                 <br>
-                   <button data_id="${i}" type="button" class="btn btn-inverse-light btn-fw addsub${i}" >Добавить ещё</button>
+<!--                   <button data_id="${i}" type="button" class="btn btn-inverse-light btn-fw addsub${i}" >Добавить ещё</button>-->
                 <br>
                 <br>
                 <div class="tinymce-editor-container">
@@ -341,6 +395,22 @@
                 //////// Stexic dzer chtakl
 
                 $('#input-container').append(container);
+                const selectElementOne = $('.delete_inputs_div').find('select[name="data[' + i + '][sobitie]"]');
+                const selectElementTwo = $('.delete_inputs_div').find('select[name="data[' + i + '][risk]"]');
+
+                function populateSelect(selectElement, optionArray) {
+                    selectElement.empty(); // Очищаем текущие option элементы в select
+                    optionArray.forEach(function (optionText, index) {
+                        const option = $('<option></option>');
+                        option.val(optionText); // Устанавливаем значение равное индексу в массиве
+                        option.text(optionText); // Устанавливаем текст option
+                        selectElement.append(option); // Добавляем option в select
+                    });
+                }
+
+                // Вызываем функцию для заполнения select элементов данными из массивов
+                populateSelect(selectElementOne, option_one_array);
+                populateSelect(selectElementTwo, option_two_array);
 
                 tinymce.init({
                     height: '400px',
@@ -387,7 +457,21 @@
                     const supers = $(this).find('[name^="data["][name$="[super]"]').val();
                     const description = JSON.stringify(tinymce.get(`tinymce_${$(this).attr('data_id')}`).getContent());
 
-                    formDataArray.push({ start_time: startTime, price: price, description: description,id:id ,  super: supers,});
+
+                    const sobitie = $(this).find('select[name^="data["][name$="[sobitie]"]').val();
+                    const risk = $(this).find('select[name^="data["][name$="[risk]"]').val();
+
+
+
+                    formDataArray.push({
+                        start_time: startTime,
+                        price: price,
+                        description: description,
+                        id:id ,
+                        super: supers,
+                        sobitie: sobitie,
+                        risk: risk
+                    });
                 });
 
 

@@ -11,10 +11,80 @@ use GuzzleHttp\Client;
 use Sunra\PhpSimple\HtmlDomParser;
 use Symfony\Component\Translation\TranslatorInterface;
 use Illuminate\Contracts\Translation\Translator;
+use App\Models\County;
+use App\Models\CountryTranslate;
 
 class TranslateController extends Controller
 {
-        public function translate_prognoz(){
+
+
+    public function translate_country(){
+        $get = County::where('translate', 0)->get();
+        $langs = [
+            'English' => 'en',
+            'Български' => 'bg',
+            'Magyar' => 'hu',
+            'Ελληνικά' => 'el',
+            'Dansk' => 'da',
+            'Bahasa Indonesia' => 'id',
+            'Español' => 'es',
+            'Italiano' => 'it',
+            'Latviešu' => 'lv',
+            'Lietuvių' => 'lt',
+            'Deutsch' => 'de',
+            'Polski' => 'pl',
+            'Português' => 'pt',
+            'Română' => 'ro',
+            'Slovenčina' => 'sk',
+            'Slovenščina' => 'sl',
+            'Türkçe' => 'tr',
+            'Українська' => 'uk',
+            'Suomi' => 'fi',
+            'Français' => 'fr',
+            'Čeština' => 'cs',
+            'Svenska' => 'sv',
+            'Eesti' => 'et',
+            'हिन्दी' => 'hi',
+
+        ];
+
+        $client = new Client();
+        foreach ($langs as $lang) {
+            foreach ($get as $country) {
+                $response = $client->post('https://atomcpa.ru/translate.php', [
+                    'form_params' => [
+                        'text' => $country->name,
+                        'language_iso' => 'ru',
+                        'language_next' =>$lang
+                    ],
+                ]);
+
+                $body = $response->getBody();
+                $countrys = json_decode($body);
+
+
+                CountryTranslate::updateOrCreate(['country_id' =>$country->id, 'lang' => $lang ],[
+                    'country_id' =>$country->id,
+                    'lang' => $lang,
+                    'name' => $countrys->result
+
+                ]);
+
+
+                $country->update([
+                    'translate' => 1
+                ]);
+
+            }
+        }
+
+
+
+        return true;
+    }
+
+
+    public function translate_prognoz(){
 
            $langs = [
                 'English' => 'en',
@@ -74,6 +144,7 @@ class TranslateController extends Controller
 
                     $body_liga = $response_liga->getBody();
                     $liga = json_decode($body_liga);
+
 
 
 
@@ -202,11 +273,34 @@ class TranslateController extends Controller
                 $body_title = $response_title->getBody();
                 $title = json_decode($body_title);
 
+                $response_sobitie = $client->post('https://atomcpa.ru/translate.php', [
+                    'form_params' => [
+                        'text' => $item['sobitie'],
+                        'language_iso' => 'ru', // Замените на ISO код исходного языка
+                        'language_next' => $lang, // Замените на ISO код целевого языка
+                    ],
+                ]);
+                $body_sobitie = $response_sobitie->getBody();
+                $body_sobitie = json_decode($body_sobitie);
+
+                $response_risk = $client->post('https://atomcpa.ru/translate.php', [
+                    'form_params' => [
+                        'text' => $item['risk'],
+                        'language_iso' => 'ru', // Замените на ISO код исходного языка
+                        'language_next' => $lang, // Замените на ISO код целевого языка
+                    ],
+                ]);
+
+                $body_risk = $response_risk->getBody();
+                $body_risk = json_decode($body_risk);
+
                 AttrTranslate::updateOrCreate(['attr_id' => $item->id, 'lang' => $lang],[
                     'attr' => $cleaned_translated_text ?? null,
                     'attr_id' => $item->id,
                     'lang' => $lang,
-                    'title' => $title->result ?? null
+                    'title' => $title->result ?? null,
+                    'sobitie' => $body_sobitie??null,
+                    'risk' => $body_risk??null,
                 ]);
 
                 PrognozAttr::where('id', $item->id)->update([
@@ -360,11 +454,36 @@ class TranslateController extends Controller
                 $body_title = $response_title->getBody();
                 $title = json_decode($body_title);
 
+
+                $response_sobitie = $client->post('https://atomcpa.ru/translate.php', [
+                    'form_params' => [
+                        'text' => $item['sobitie'],
+                        'language_iso' => 'ru', // Замените на ISO код исходного языка
+                        'language_next' => $lang, // Замените на ISO код целевого языка
+                    ],
+                ]);
+                $body_sobitie = $response_sobitie->getBody();
+                $body_sobitie = json_decode($body_sobitie);
+                $item['sobitie'];
+
+                $response_risk = $client->post('https://atomcpa.ru/translate.php', [
+                    'form_params' => [
+                        'text' => $item['risk'],
+                        'language_iso' => 'ru', // Замените на ISO код исходного языка
+                        'language_next' => $lang, // Замените на ISO код целевого языка
+                    ],
+                ]);
+
+                $body_risk = $response_risk->getBody();
+                $body_risk = json_decode($body_risk);
+
                 AttrTranslate::updateOrCreate(['attr_id' => $item->id, 'lang' => $lang],[
-                    'attr' => $correctedText ?? null,
+                    'attr' => $cleaned_translated_text ?? null,
                     'attr_id' => $item->id,
                     'lang' => $lang,
-                    'title' => $title->result ?? null
+                    'title' => $title->result ?? null,
+                    'sobitie' => $body_sobitie->result??null,
+                    'risk' => $body_risk->result??null,
                 ]);
 
                 PrognozAttr::where('id', $item->id)->update([

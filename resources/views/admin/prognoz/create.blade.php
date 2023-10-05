@@ -183,9 +183,17 @@
 {{--                        </div>--}}
 {{--                    </div>--}}
 {{--                    </div>--}}
+
+
+                    <div class="form-group" bis_skin_checked="1">
+                        <label for="exampleSelectGender">Анализ</label>
+                        <textarea name="analize" id="tinymceanalize"></textarea>
+                    </div>
+
+
                     <br>
                     <br>
-                    <h3>КФ</h3>
+                    <h3>Событие</h3>
                     <br>
                     <div id="editor-container"></div>
                     <div id="input-container" bis_skin_checked="1">
@@ -201,5 +209,13 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 
     <script src="{{asset('admin//js/product.js')}}"></script>
+<script>
+    tinymce.init({
+        height: "400px",
+        selector: `#tinymceanalize`,
+        plugins: "link image lists colorpicker",
+        toolbar:  "undo redo | styleselect | bold italic | forecolor | link image | bullist numlist",
+    });
+</script>
 @endsection
 
